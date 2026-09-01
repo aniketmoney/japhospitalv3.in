@@ -64,3 +64,78 @@ h1,h2,h3,h4{font-family:Poppins,Inter,sans-serif;line-height:1.15;color:var(--na
 @media(max-width:1050px){.brand-strip-inner{grid-template-columns:.75fr 1.6fr .9fr}.decision-grid{grid-template-columns:repeat(2,1fr)}.estimate-panel{grid-template-columns:1fr}.recovery-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:700px){.brand-strip-inner{min-height:104px;grid-template-columns:auto 1fr auto;gap:9px}.brand-accreditations{gap:7px;padding-left:0}.brand-accreditations img{width:34px;height:34px}.brand-strip-name{font-size:1.35rem}.brand-strip-kicker{font-size:.58rem}.brand-strip-punjabi{font-size:.78rem}.brand-strip-sub{font-size:.48rem;max-width:190px}.brand-strip-rating{padding:8px 9px}.brand-strip-rating strong{font-size:.68rem}.brand-strip-rating span:last-child{display:none}.brand-strip-rating .rating-star{font-size:.95rem}.surgeon-credential-chips span{font-size:.69rem}.decision-grid,.recovery-grid{grid-template-columns:1fr}.estimate-panel{padding:28px}.treatment-anchor-nav{top:66px}.robotic-doctor-chip{left:10px;right:10px;bottom:10px}.hero-proof{width:230px}}
 @media(max-width:470px){.brand-strip-inner{grid-template-columns:58px 1fr 46px}.brand-accreditations{gap:3px}.brand-accreditations img{width:27px;height:27px}.brand-strip-rating{width:42px;height:42px;padding:0;justify-content:center}.brand-strip-rating strong,.brand-strip-rating span:last-child{display:none}.brand-strip-name{font-size:1.18rem}.brand-strip-sub{font-size:.42rem}.brand-strip-kicker{font-size:.52rem}.hero-proof{width:210px}}
+
+
+/* =========================================================
+   V3.2 HOMEPAGE CONVERSION UPDATE
+   Client request: faster hero, earlier Why JAP, stronger
+   Google proof and more persuasive patient stories.
+   ========================================================= */
+.hero-v32{padding:54px 0 58px}
+.hero-v32 .hero-copy{max-width:660px}
+.hero-v32 h1{font-size:clamp(3rem,6.2vw,5.6rem);margin-bottom:.08em;color:var(--navy)}
+.hero-role{font:800 clamp(1.08rem,2vw,1.42rem)/1.45 Poppins,Inter,sans-serif;color:#27485f;margin:8px 0 22px;max-width:640px}
+.hero-role span{color:var(--red);padding:0 5px}
+.hero-key-metrics{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 18px}
+.hero-key-metrics>div{min-width:180px;background:#fff;border:1px solid #d4e4ee;border-radius:17px;padding:13px 17px;box-shadow:0 10px 24px rgba(6,53,95,.08)}
+.hero-key-metrics strong{display:block;font:800 1.62rem/1 Poppins;color:var(--red)}
+.hero-key-metrics span{display:block;margin-top:6px;font-size:.78rem;font-weight:800;color:#476175}
+.hero-location-line{display:flex;align-items:center;gap:9px;color:var(--navy);font-weight:800;margin:0 0 22px}
+.hero-location-line:before{content:"⌖";display:grid;place-items:center;width:29px;height:29px;border-radius:50%;background:var(--soft);color:var(--red);font-size:1rem}
+.hero-primary-actions{gap:10px}
+.hero-primary-actions .btn{min-width:165px}
+.hero-figure-note{font-size:.7rem;color:#748896;margin:12px 0 0}
+.compact-proof{padding:13px 15px;width:250px}
+.compact-proof span{font-size:.74rem}
+.hero-v32 .tech-badge{max-width:215px;line-height:1.35}
+.hero-v32 .tech-badge small{display:block;margin-top:3px}
+
+.why-jap-early{padding-top:70px;padding-bottom:72px}
+.compact-head{margin-bottom:28px}
+.compact-head .lead{margin-left:auto;margin-right:auto}
+.why-visual-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.why-visual-card{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:22px;padding:23px 18px;min-height:205px;box-shadow:var(--shadow-sm);transition:.24s ease}
+.why-visual-card:after{content:"";position:absolute;width:90px;height:90px;border:18px solid rgba(11,79,138,.05);border-radius:50%;right:-38px;bottom:-42px}
+.why-visual-card:nth-child(2):after,.why-visual-card:nth-child(5):after{border-color:rgba(214,40,40,.055)}
+.why-visual-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.why-visual-icon{display:grid;place-items:center;width:44px;height:44px;border-radius:15px;background:linear-gradient(135deg,#E9F4FB,#fff);border:1px solid #cfe2ee;color:var(--red);font:900 .82rem Poppins;margin-bottom:20px}
+.why-visual-card h3{font-size:1.03rem;margin-bottom:8px}
+.why-visual-card strong{display:block;color:#587080;font-size:.81rem;line-height:1.5;position:relative;z-index:1}
+
+/* Strong Google proof in the V2-style top brand strip */
+.brand-strip-rating.rating-enhanced{display:grid;grid-template-columns:auto auto;grid-template-areas:"stars score" "count count" "link link";column-gap:8px;row-gap:0;background:#fff;border:1px solid #e1d5ad;border-radius:18px;padding:10px 15px;box-shadow:0 7px 22px rgba(6,53,95,.09);transition:.22s ease}
+.brand-strip-rating.rating-enhanced:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(6,53,95,.13);border-color:#d5bb67}
+.rating-enhanced .rating-stars{grid-area:stars;color:#F4B400;letter-spacing:1px;font-size:.8rem;align-self:center}
+.rating-enhanced .rating-score{grid-area:score;color:var(--navy);font-size:.86rem;align-self:center}
+.rating-enhanced .rating-score strong{font-size:.9rem}
+.rating-enhanced .rating-count{grid-area:count;color:#425d70;font-size:.72rem;font-weight:800;margin-top:1px}
+.rating-enhanced .rating-link{grid-area:link;color:var(--red-dark);font-size:.63rem;font-weight:850;margin-top:2px}
+
+/* More persuasive patient stories */
+.patient-stories-impact{padding-top:76px}
+.impact-story-card{height:100%;display:flex;flex-direction:column}
+.impact-story-card .story-copy{display:flex;flex-direction:column;flex:1;padding:23px}
+.story-stars{color:#F4B400;letter-spacing:2px;font-size:.88rem;margin-bottom:10px}
+.impact-story-card blockquote{margin:0 0 18px;color:#27495f;font-weight:700;font-size:.93rem;line-height:1.65;flex:1}
+.impact-story-card h3{margin-bottom:3px}
+.impact-story-card .story-copy>p{margin:0 0 13px;color:var(--muted);font-size:.8rem;font-weight:700}
+.story-watch{border:0;background:transparent;color:var(--red-dark);font-weight:850;text-align:left;padding:0;font-size:.82rem;align-self:flex-start}
+.story-watch:hover{text-decoration:underline}
+
+.google-proof-section{padding-top:34px;padding-bottom:34px}
+.google-proof-card{display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:24px;background:linear-gradient(115deg,#fff,#F7FBFD 55%,#FFF7EF);border:1px solid #e4d7b1;border-radius:26px;padding:28px 34px;box-shadow:var(--shadow-sm);transition:.24s ease}
+.google-proof-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.google-proof-stars{color:#F4B400;letter-spacing:3px;font-size:1.25rem;white-space:nowrap}
+.google-proof-score{font:800 2.3rem/1 Poppins;color:var(--navy);white-space:nowrap}
+.google-proof-copy{display:grid;gap:2px;border-left:1px solid #e1e8ed;padding-left:24px}
+.google-proof-copy strong{font:800 1.18rem Poppins;color:var(--navy)}
+.google-proof-copy span{color:var(--red-dark);font-weight:800;font-size:.87rem}
+
+@media(max-width:1150px){.why-visual-grid{grid-template-columns:repeat(3,1fr)}.why-visual-card:nth-child(4),.why-visual-card:nth-child(5){min-height:180px}}
+@media(max-width:800px){
+  .hero-v32{padding:38px 0 46px}.hero-v32 h1{font-size:clamp(2.8rem,13vw,4.2rem)}.hero-role{font-size:1.04rem}.hero-key-metrics{display:grid;grid-template-columns:1fr 1fr}.hero-key-metrics>div{min-width:0;padding:12px 13px}.hero-key-metrics strong{font-size:1.38rem}.hero-key-metrics span{font-size:.7rem}.hero-location-line{font-size:.88rem}.hero-primary-actions .btn{min-width:0}.why-visual-grid{grid-template-columns:1fr 1fr}.google-proof-card{grid-template-columns:1fr;gap:8px;text-align:center}.google-proof-copy{border-left:0;border-top:1px solid #e1e8ed;padding:12px 0 0}.google-proof-stars{font-size:1.05rem}.google-proof-score{font-size:2rem}
+}
+@media(max-width:700px){
+  .brand-strip-rating.rating-enhanced{display:flex;width:48px;height:48px;padding:0;align-items:center;justify-content:center;border-radius:50%}.rating-enhanced .rating-stars,.rating-enhanced .rating-count,.rating-enhanced .rating-link{display:none}.rating-enhanced .rating-score strong{font-size:.73rem}.hero-v32 .hero-visual{min-height:400px}.why-jap-early{padding-top:52px;padding-bottom:54px}.impact-story-card .story-copy{padding:20px}
+}
+@media(max-width:520px){.why-visual-grid{grid-template-columns:1fr}.why-visual-card{min-height:auto}.hero-key-metrics{gap:8px}.hero-key-metrics strong{font-size:1.24rem}.hero-key-metrics span{font-size:.64rem}.google-proof-card{padding:24px 18px}}
