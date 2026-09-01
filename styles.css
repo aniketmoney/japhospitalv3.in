@@ -139,3 +139,125 @@ h1,h2,h3,h4{font-family:Poppins,Inter,sans-serif;line-height:1.15;color:var(--na
   .brand-strip-rating.rating-enhanced{display:flex;width:48px;height:48px;padding:0;align-items:center;justify-content:center;border-radius:50%}.rating-enhanced .rating-stars,.rating-enhanced .rating-count,.rating-enhanced .rating-link{display:none}.rating-enhanced .rating-score strong{font-size:.73rem}.hero-v32 .hero-visual{min-height:400px}.why-jap-early{padding-top:52px;padding-bottom:54px}.impact-story-card .story-copy{padding:20px}
 }
 @media(max-width:520px){.why-visual-grid{grid-template-columns:1fr}.why-visual-card{min-height:auto}.hero-key-metrics{gap:8px}.hero-key-metrics strong{font-size:1.24rem}.hero-key-metrics span{font-size:.64rem}.google-proof-card{padding:24px 18px}}
+
+
+/* =========================================================
+   V3.3 MOBILE GOOGLE RATING REFINEMENT
+   Keeps the desktop card concept on mobile instead of turning
+   the 4.9 rating into an unexplained circle.
+   ========================================================= */
+@media(max-width:700px){
+  .hospital-brand-strip{padding:0}
+  .brand-strip-inner{
+    min-height:118px;
+    grid-template-columns:62px minmax(0,1fr) 124px;
+    gap:8px;
+    align-items:center;
+  }
+  .brand-accreditations{gap:4px;padding-left:0;justify-content:flex-start}
+  .brand-accreditations img{width:29px;height:29px}
+  .brand-strip-center{min-width:0}
+  .brand-strip-kicker{font-size:.54rem;letter-spacing:.045em;white-space:nowrap}
+  .brand-strip-name{font-size:1.18rem;letter-spacing:.015em;white-space:nowrap;margin:3px 0}
+  .brand-strip-punjabi{font-size:.7rem}
+  .brand-strip-sub{font-size:.42rem;line-height:1.25;max-width:165px;margin-top:6px}
+
+  .brand-strip-rating.rating-enhanced.rating-mobile-card{
+    justify-self:end;
+    width:124px;
+    height:auto;
+    min-height:70px;
+    padding:8px 9px;
+    border-radius:15px;
+    display:grid;
+    grid-template-columns:1fr auto;
+    grid-template-areas:
+      "stars score"
+      "count count"
+      "link link";
+    column-gap:5px;
+    row-gap:2px;
+    align-items:center;
+    background:linear-gradient(145deg,#fff 0%,#fffdf5 100%);
+    border:1px solid #dfd2a8;
+    box-shadow:0 6px 16px rgba(6,53,95,.09);
+    white-space:normal;
+  }
+  .brand-strip-rating.rating-enhanced.rating-mobile-card:active{
+    transform:scale(.985);
+  }
+  .rating-enhanced.rating-mobile-card .rating-stars{
+    display:block;
+    grid-area:stars;
+    color:#F4B400;
+    font-size:.58rem;
+    letter-spacing:.15px;
+    line-height:1;
+    white-space:nowrap;
+  }
+  .rating-enhanced.rating-mobile-card .rating-score{
+    display:block;
+    grid-area:score;
+    line-height:1;
+  }
+  .rating-enhanced.rating-mobile-card .rating-score strong{
+    display:block;
+    color:var(--navy);
+    font-size:.76rem;
+    line-height:1;
+  }
+  .rating-enhanced.rating-mobile-card .rating-count{
+    display:block;
+    grid-area:count;
+    margin:1px 0 0;
+    color:#405c70;
+    font-size:.56rem;
+    font-weight:850;
+    line-height:1.25;
+  }
+  .rating-enhanced.rating-mobile-card .rating-link{
+    display:block;
+    grid-area:link;
+    margin:0;
+    color:var(--red-dark);
+    font-size:.49rem;
+    font-weight:850;
+    line-height:1.25;
+  }
+}
+
+@media(max-width:470px){
+  .brand-strip-inner{
+    min-height:112px;
+    grid-template-columns:52px minmax(0,1fr) 112px;
+    gap:6px;
+  }
+  .brand-accreditations{gap:2px}
+  .brand-accreditations img{width:25px;height:25px}
+  .brand-strip-name{font-size:1.02rem}
+  .brand-strip-kicker{font-size:.47rem}
+  .brand-strip-punjabi{font-size:.62rem}
+  .brand-strip-sub{font-size:.36rem;max-width:145px;margin-top:5px}
+  .brand-strip-rating.rating-enhanced.rating-mobile-card{
+    width:112px;
+    min-height:64px;
+    padding:7px 8px;
+    border-radius:14px;
+  }
+  .rating-enhanced.rating-mobile-card .rating-stars{font-size:.52rem}
+  .rating-enhanced.rating-mobile-card .rating-score strong{font-size:.7rem}
+  .rating-enhanced.rating-mobile-card .rating-count{font-size:.51rem}
+  .rating-enhanced.rating-mobile-card .rating-link{font-size:.45rem}
+}
+
+@media(max-width:365px){
+  .brand-strip-inner{
+    grid-template-columns:48px minmax(0,1fr) 104px;
+    gap:5px;
+  }
+  .brand-accreditations img{width:23px;height:23px}
+  .brand-strip-name{font-size:.94rem}
+  .brand-strip-sub{font-size:.33rem;max-width:132px}
+  .brand-strip-rating.rating-enhanced.rating-mobile-card{width:104px;padding:6px 7px}
+  .rating-enhanced.rating-mobile-card .rating-link{font-size:.42rem}
+}
