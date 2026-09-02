@@ -3,8 +3,6 @@ const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 
 // =========================================================
 // V3.4 SITE-WIDE TRUST + CONTACT SETTINGS
-// Update the Google figures here after periodically checking
-// the live Google Business profile.
 // =========================================================
 const SITE_TRUST = {
   rating: '4.9/5',
@@ -17,7 +15,9 @@ const SITE_CONTACT = {
   whatsappPhone: '919909916112'
 };
 
-// Keep the header Google-rating presentation identical on every page.
+// =========================================================
+// GOOGLE RATING
+// =========================================================
 $$('.brand-strip-rating').forEach((rating) => {
   rating.classList.add('rating-enhanced', 'rating-mobile-card');
   rating.href = SITE_TRUST.reviewUrl;
@@ -37,7 +37,6 @@ $$('.brand-strip-rating').forEach((rating) => {
   `;
 });
 
-// Keep the larger homepage Google proof card in sync with the header.
 $$('.google-proof-card').forEach((card) => {
   card.href = SITE_TRUST.reviewUrl;
   card.target = '_blank';
@@ -59,7 +58,9 @@ $$('.google-proof-card').forEach((card) => {
   `;
 });
 
-// Make the two phone purposes clear wherever these links appear.
+// =========================================================
+// PHONE / WHATSAPP LABELS
+// =========================================================
 $$(`a[href="tel:${SITE_CONTACT.receptionPhone}"]`).forEach((link) => {
   link.setAttribute(
     'aria-label',
@@ -82,7 +83,6 @@ $$(`a[href*="wa.me/${SITE_CONTACT.whatsappPhone}"]`).forEach((link) => {
 
 // =========================================================
 // SIMPLIFIED SITE-WIDE NAVIGATION
-// Keeps the same compact menu on every V3 page that loads main.js.
 // =========================================================
 (() => {
   const desktopNav = $('.nav-links');
@@ -194,11 +194,21 @@ $$(`a[href*="wa.me/${SITE_CONTACT.whatsappPhone}"]`).forEach((link) => {
     mobileNav.innerHTML = `
       <a href="index.html">Home</a>
       <a href="orthopaedics.html">Treatments</a>
-      <a href="robotic-knee-replacement.html">Robotic Knee Replacement</a>
-      <a href="doctor-aman-singh.html">Dr. Aman Singh</a>
-      <a href="about.html">About JAP Hospital</a>
-      <a href="index.html#patient-stories">Patient Stories</a>
-      <a href="contact.html">Contact / Appointment</a>
+      <a href="robotic-knee-replacement.html">
+        Robotic Knee Replacement
+      </a>
+      <a href="doctor-aman-singh.html">
+        Dr. Aman Singh
+      </a>
+      <a href="about.html">
+        About JAP Hospital
+      </a>
+      <a href="index.html#patient-stories">
+        Patient Stories
+      </a>
+      <a href="contact.html">
+        Contact / Appointment
+      </a>
     `;
   }
 })();
@@ -264,31 +274,33 @@ $$('.mobile-links a').forEach((a) => {
 // =========================================================
 // SCROLL REVEAL
 // =========================================================
-const revealItems = $$('[data-reveal]');
+const revealItems =
+  $$('[data-reveal]');
 
 if ('IntersectionObserver' in window) {
 
-  const io = new IntersectionObserver(
-    (entries) =>
-      entries.forEach((entry) => {
+  const io =
+    new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
 
-        if (entry.isIntersecting) {
+          if (entry.isIntersecting) {
 
-          entry.target.classList.add(
-            'visible'
-          );
+            entry.target.classList.add(
+              'visible'
+            );
 
-          io.unobserve(
-            entry.target
-          );
+            io.unobserve(
+              entry.target
+            );
 
-        }
+          }
 
-      }),
-    {
-      threshold: 0.12
-    }
-  );
+        }),
+      {
+        threshold: 0.12
+      }
+    );
 
   revealItems.forEach((el) => {
     io.observe(el);
@@ -398,8 +410,10 @@ document.addEventListener(
   (e) => {
 
     if (e.key === 'Escape') {
+
       closeMenu();
       closeVideo();
+
     }
 
   }
@@ -459,17 +473,19 @@ if (checker) {
   };
 
   boxes.forEach((b) => {
+
     b.addEventListener(
       'change',
       update
     );
+
   });
 
   update();
 }
 
 // =========================================================
-// APPOINTMENT FORM -> WHATSAPP APPOINTMENT DESK
+// APPOINTMENT FORM -> WHATSAPP
 // =========================================================
 const form = $('#appointmentForm');
 
@@ -504,8 +520,8 @@ if (form) {
 }
 
 // =========================================================
-// ELDER-FRIENDLY MOBILE ACTION BAR
-// Always keep this exactly: Call | WhatsApp | Book.
+// MOBILE ACTION BAR
+// Call | WhatsApp | Book
 // =========================================================
 const mobileActions =
   $('.mobile-actions');
@@ -609,9 +625,9 @@ teamSections.forEach((section) => {
 });
 
 // =========================================================
-// V3.10 — FIVE-SLIDE HOSPITAL SHOWCASE
-// 5-second autoplay + V2-style visible transition.
-// Cross-fades the slides, moves the image gently and staggers copy.
+// V3.11 — FIVE-SLIDE HOSPITAL SHOWCASE
+// Reliable 5-second autoplay
+// + clearly visible V2-style transition.
 // =========================================================
 (() => {
 
@@ -642,7 +658,7 @@ teamSections.forEach((section) => {
   }
 
   const interval = 5000;
-  const transitionDuration = 900;
+  const transitionDuration = 1000;
 
   let index = Math.max(
     0,
@@ -655,7 +671,7 @@ teamSections.forEach((section) => {
   );
 
   let timer = null;
-  let leavingTimer = null;
+  let cleanupTimer = null;
   let touchStartX = 0;
   let transitionToken = 0;
 
@@ -665,7 +681,7 @@ teamSections.forEach((section) => {
     ).matches;
 
   // -----------------------------------------
-  // RESTART PROGRESS BAR
+  // PROGRESS BAR
   // -----------------------------------------
   const resetProgress = () => {
 
@@ -690,7 +706,7 @@ teamSections.forEach((section) => {
   };
 
   // -----------------------------------------
-  // CLEAR AUTOMATIC TIMER
+  // CLEAR 5-SECOND TIMER
   // -----------------------------------------
   const clearAutoTimer = () => {
 
@@ -707,24 +723,24 @@ teamSections.forEach((section) => {
   };
 
   // -----------------------------------------
-  // CLEAR TRANSITION CLEANUP TIMER
+  // CLEAR TRANSITION CLEANUP
   // -----------------------------------------
-  const clearLeavingTimer = () => {
+  const clearCleanupTimer = () => {
 
-    if (leavingTimer !== null) {
+    if (cleanupTimer !== null) {
 
       window.clearTimeout(
-        leavingTimer
+        cleanupTimer
       );
 
-      leavingTimer = null;
+      cleanupTimer = null;
 
     }
 
   };
 
   // -----------------------------------------
-  // SCHEDULE NEXT SLIDE AFTER 5 SECONDS
+  // NEXT SLIDE AFTER EXACTLY 5 SECONDS
   // -----------------------------------------
   const scheduleNext = () => {
 
@@ -751,7 +767,7 @@ teamSections.forEach((section) => {
   };
 
   // -----------------------------------------
-  // UPDATE DOT INDICATORS
+  // UPDATE DOTS
   // -----------------------------------------
   const updateDots = () => {
 
@@ -779,7 +795,47 @@ teamSections.forEach((section) => {
   };
 
   // -----------------------------------------
-  // SHOW SLIDE WITH V2-STYLE TRANSITION
+  // REDUCED MOTION FALLBACK
+  // -----------------------------------------
+  const finishImmediately = (
+    oldSlide,
+    newSlide
+  ) => {
+
+    slides.forEach((slide) => {
+
+      slide.classList.remove(
+        'active',
+        'is-entering',
+        'is-leaving'
+      );
+
+      slide.setAttribute(
+        'aria-hidden',
+        'true'
+      );
+
+    });
+
+    oldSlide?.classList.remove(
+      'active',
+      'is-entering',
+      'is-leaving'
+    );
+
+    newSlide.classList.add(
+      'active'
+    );
+
+    newSlide.setAttribute(
+      'aria-hidden',
+      'false'
+    );
+
+  };
+
+  // -----------------------------------------
+  // SHOW SLIDE WITH VISIBLE TRANSITION
   // -----------------------------------------
   const showSlide = (
     newIndex,
@@ -793,8 +849,6 @@ teamSections.forEach((section) => {
       ) %
       slides.length;
 
-    // If user clicks the currently active dot,
-    // simply restart its five-second timer.
     if (
       nextIndex === index &&
       slides[index].classList.contains(
@@ -810,7 +864,7 @@ teamSections.forEach((section) => {
     }
 
     clearAutoTimer();
-    clearLeavingTimer();
+    clearCleanupTimer();
 
     const oldIndex =
       index;
@@ -831,8 +885,8 @@ teamSections.forEach((section) => {
 
     updateDots();
 
-    // Clean any slide that is not participating
-    // in the current transition.
+    // Remove old transition classes
+    // from unrelated slides.
     slides.forEach(
       (slide, i) => {
 
@@ -843,6 +897,7 @@ teamSections.forEach((section) => {
 
           slide.classList.remove(
             'active',
+            'is-entering',
             'is-leaving'
           );
 
@@ -856,33 +911,11 @@ teamSections.forEach((section) => {
       }
     );
 
-    // Respect reduced-motion accessibility settings.
     if (reducedMotion) {
 
-      oldSlide?.classList.remove(
-        'active',
-        'is-leaving'
-      );
-
-      newSlide.classList.remove(
-        'is-leaving'
-      );
-
-      newSlide.classList.add(
-        'active'
-      );
-
-      slides.forEach(
-        (slide, i) => {
-
-          slide.setAttribute(
-            'aria-hidden',
-            i === index
-              ? 'false'
-              : 'true'
-          );
-
-        }
+      finishImmediately(
+        oldSlide,
+        newSlide
       );
 
       if (restart) {
@@ -892,31 +925,26 @@ teamSections.forEach((section) => {
       return;
     }
 
-    // Keep the old slide visible for the fade-out.
-    if (
-      oldSlide &&
-      oldSlide !== newSlide
-    ) {
+    // Keep outgoing slide visible
+    // before starting its fade.
+    oldSlide?.classList.remove(
+      'is-entering',
+      'is-leaving'
+    );
 
-      oldSlide.classList.remove(
-        'active'
-      );
+    oldSlide?.classList.add(
+      'active'
+    );
 
-      oldSlide.classList.add(
-        'is-leaving'
-      );
-
-      oldSlide.setAttribute(
-        'aria-hidden',
-        'true'
-      );
-
-    }
-
-    // Start the incoming slide from the hidden position.
+    // Incoming slide begins transparent
+    // and slightly shifted right.
     newSlide.classList.remove(
       'active',
       'is-leaving'
+    );
+
+    newSlide.classList.add(
+      'is-entering'
     );
 
     newSlide.setAttribute(
@@ -924,53 +952,96 @@ teamSections.forEach((section) => {
       'false'
     );
 
-    // Two frames guarantee that the browser paints
-    // the starting state before adding .active.
-    // This prevents the slideshow from looking like
-    // an instant image cut.
+    // Force browser to paint
+    // the starting animation state.
+    void newSlide.offsetWidth;
+
     window.requestAnimationFrame(
       () => {
 
-        window.requestAnimationFrame(
-          () => {
+        if (
+          token !== transitionToken
+        ) {
+          return;
+        }
 
-            if (
-              token !== transitionToken
-            ) {
-              return;
-            }
+        // OUTGOING SLIDE
+        if (
+          oldSlide &&
+          oldSlide !== newSlide
+        ) {
 
-            newSlide.classList.add(
-              'active'
-            );
+          oldSlide.classList.remove(
+            'active'
+          );
 
-            leavingTimer =
-              window.setTimeout(
-                () => {
+          oldSlide.classList.add(
+            'is-leaving'
+          );
 
-                  if (
-                    token !== transitionToken
-                  ) {
-                    return;
-                  }
+          oldSlide.setAttribute(
+            'aria-hidden',
+            'true'
+          );
 
-                  oldSlide?.classList.remove(
-                    'is-leaving'
-                  );
+        }
 
-                  leavingTimer =
-                    null;
+        // INCOMING SLIDE
+        newSlide.classList.remove(
+          'is-entering'
+        );
 
-                },
-                transitionDuration + 80
+        newSlide.classList.add(
+          'active'
+        );
+
+        // Remove old slide after
+        // transition is complete.
+        cleanupTimer =
+          window.setTimeout(
+            () => {
+
+              if (
+                token !== transitionToken
+              ) {
+                return;
+              }
+
+              oldSlide?.classList.remove(
+                'is-leaving',
+                'is-entering'
               );
 
-            if (restart) {
-              scheduleNext();
-            }
+              slides.forEach(
+                (slide, i) => {
 
-          }
-        );
+                  if (i !== index) {
+
+                    slide.classList.remove(
+                      'active',
+                      'is-entering',
+                      'is-leaving'
+                    );
+
+                    slide.setAttribute(
+                      'aria-hidden',
+                      'true'
+                    );
+
+                  }
+
+                }
+              );
+
+              cleanupTimer = null;
+
+            },
+            transitionDuration + 120
+          );
+
+        if (restart) {
+          scheduleNext();
+        }
 
       }
     );
@@ -1003,7 +1074,7 @@ teamSections.forEach((section) => {
   );
 
   // -----------------------------------------
-  // DOT NAVIGATION
+  // DOTS
   // -----------------------------------------
   dots.forEach(
     (dot, i) => {
@@ -1021,7 +1092,7 @@ teamSections.forEach((section) => {
   );
 
   // -----------------------------------------
-  // MOBILE SWIPE START
+  // MOBILE SWIPE
   // -----------------------------------------
   slider.addEventListener(
     'touchstart',
@@ -1047,9 +1118,6 @@ teamSections.forEach((section) => {
     }
   );
 
-  // -----------------------------------------
-  // MOBILE SWIPE END
-  // -----------------------------------------
   slider.addEventListener(
     'touchend',
     (e) => {
@@ -1169,6 +1237,7 @@ teamSections.forEach((section) => {
       );
 
       slide.classList.remove(
+        'is-entering',
         'is-leaving'
       );
 
