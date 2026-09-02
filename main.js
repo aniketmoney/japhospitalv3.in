@@ -2,9 +2,7 @@ const $ = (s, root = document) => root.querySelector(s);
 const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 
 // =========================================================
-// V3.4 SITE-WIDE TRUST + CONTACT SETTINGS
-// Update the Google figures here after periodically checking
-// the live Google Business profile.
+// SITE-WIDE TRUST + CONTACT SETTINGS
 // =========================================================
 const SITE_TRUST = {
   rating: '4.9/5',
@@ -17,12 +15,16 @@ const SITE_CONTACT = {
   whatsappPhone: '919909916112'
 };
 
-// Keep the header Google-rating presentation identical on every page.
+// =========================================================
+// GOOGLE REVIEW BADGE
+// =========================================================
 $$('.brand-strip-rating').forEach((rating) => {
   rating.classList.add('rating-enhanced', 'rating-mobile-card');
+
   rating.href = SITE_TRUST.reviewUrl;
   rating.target = '_blank';
   rating.rel = 'noopener';
+
   rating.setAttribute(
     'aria-label',
     `See JAP Hospital Google reviews — rated ${SITE_TRUST.rating} from ${SITE_TRUST.reviews}`
@@ -30,13 +32,21 @@ $$('.brand-strip-rating').forEach((rating) => {
 
   rating.innerHTML = `
     <span class="rating-stars" aria-hidden="true">★★★★★</span>
-    <span class="rating-score"><strong>${SITE_TRUST.rating}</strong></span>
-    <span class="rating-count">${SITE_TRUST.reviews}</span>
-    <span class="rating-link">See what our patients say →</span>
+    <span class="rating-score">
+      <strong>${SITE_TRUST.rating}</strong>
+    </span>
+    <span class="rating-count">
+      ${SITE_TRUST.reviews}
+    </span>
+    <span class="rating-link">
+      See what our patients say →
+    </span>
   `;
 });
 
-// Keep the larger homepage Google proof card in sync with the header.
+// =========================================================
+// HOMEPAGE GOOGLE REVIEW CARD
+// =========================================================
 $$('.google-proof-card').forEach((card) => {
   card.href = SITE_TRUST.reviewUrl;
   card.target = '_blank';
@@ -48,17 +58,29 @@ $$('.google-proof-card').forEach((card) => {
   );
 
   card.innerHTML = `
-    <div class="google-proof-stars" aria-hidden="true">★★★★★</div>
-    <div class="google-proof-score">${SITE_TRUST.rating}</div>
+    <div class="google-proof-stars" aria-hidden="true">
+      ★★★★★
+    </div>
+
+    <div class="google-proof-score">
+      ${SITE_TRUST.rating}
+    </div>
 
     <div class="google-proof-copy">
-      <strong>${SITE_TRUST.reviews}</strong>
-      <span>See what our patients say →</span>
+      <strong>
+        ${SITE_TRUST.reviews}
+      </strong>
+
+      <span>
+        See what our patients say →
+      </span>
     </div>
   `;
 });
 
-// Make the two phone purposes clear wherever these links appear.
+// =========================================================
+// PHONE PURPOSE LABELS
+// =========================================================
 $$(`a[href="tel:${SITE_CONTACT.receptionPhone}"]`).forEach((link) => {
   link.setAttribute(
     'aria-label',
@@ -79,28 +101,27 @@ $$(`a[href*="wa.me/${SITE_CONTACT.whatsappPhone}"]`).forEach((link) => {
   link.title = 'WhatsApp Appointment Desk';
 });
 
-
 // =========================================================
 // HEADER SCROLL EFFECT
 // =========================================================
-
 const header = $('.header');
 
 window.addEventListener(
   'scroll',
-  () =>
+  () => {
     header?.classList.toggle(
       'scrolled',
       window.scrollY > 8
-    ),
-  { passive: true }
+    );
+  },
+  {
+    passive: true
+  }
 );
-
 
 // =========================================================
 // MOBILE MENU
 // =========================================================
-
 const menu = $('#mobileMenu');
 
 function openMenu() {
@@ -123,33 +144,28 @@ $('#mobileClose')?.addEventListener(
   closeMenu
 );
 
-menu?.addEventListener(
-  'click',
-  (e) => {
-    if (e.target === menu) {
-      closeMenu();
-    }
+menu?.addEventListener('click', (e) => {
+  if (e.target === menu) {
+    closeMenu();
   }
-);
+});
 
-$$('.mobile-links a').forEach((a) =>
+$$('.mobile-links a').forEach((a) => {
   a.addEventListener(
     'click',
     closeMenu
-  )
-);
-
+  );
+});
 
 // =========================================================
 // SCROLL REVEAL
 // =========================================================
-
 const revealItems = $$('[data-reveal]');
 
 if ('IntersectionObserver' in window) {
 
   const io = new IntersectionObserver(
-    (entries) =>
+    (entries) => {
       entries.forEach((entry) => {
 
         if (entry.isIntersecting) {
@@ -163,70 +179,66 @@ if ('IntersectionObserver' in window) {
           );
         }
 
-      }),
+      });
+    },
     {
       threshold: 0.12
     }
   );
 
-  revealItems.forEach((el) =>
-    io.observe(el)
-  );
+  revealItems.forEach((el) => {
+    io.observe(el);
+  });
 
 } else {
 
-  revealItems.forEach((el) =>
-    el.classList.add('visible')
-  );
+  revealItems.forEach((el) => {
+    el.classList.add('visible');
+  });
 
 }
-
 
 // =========================================================
 // PATIENT VIDEO MODAL
 // =========================================================
-
 const modal = $('#videoModal');
 const modalVideo = $('#patientVideo');
 const modalTitle = $('#videoTitle');
 
 $$('[data-video]').forEach((btn) => {
 
-  btn.addEventListener(
-    'click',
-    () => {
+  btn.addEventListener('click', () => {
 
-      if (!modal || !modalVideo) {
-        return;
-      }
-
-      modalTitle.textContent =
-        btn.dataset.title ||
-        'Patient Story';
-
-      modalVideo.src =
-        btn.dataset.video ||
-        '';
-
-      modal.classList.add(
-        'open'
-      );
-
-      modal.setAttribute(
-        'aria-hidden',
-        'false'
-      );
-
-      document.body.classList.add(
-        'no-scroll'
-      );
-
-      modalVideo
-        .play()
-        .catch(() => {});
-
+    if (!modal || !modalVideo) {
+      return;
     }
-  );
+
+    modalTitle.textContent =
+      btn.dataset.title ||
+      'Patient Story';
+
+    modalVideo.src =
+      btn.dataset.video ||
+      '';
+
+    modal.classList.add(
+      'open'
+    );
+
+    modal.setAttribute(
+      'aria-hidden',
+      'false'
+    );
+
+    document.body.classList.add(
+      'no-scroll'
+    );
+
+    modalVideo
+      .play()
+      .catch(() => {});
+
+  });
 
 });
 
@@ -288,11 +300,9 @@ document.addEventListener(
   }
 );
 
-
 // =========================================================
 // KNEE PAIN CHECKER
 // =========================================================
-
 const checker = $('#kneeChecker');
 
 if (checker) {
@@ -343,21 +353,21 @@ if (checker) {
 
   };
 
-  boxes.forEach((b) =>
+  boxes.forEach((b) => {
+
     b.addEventListener(
       'change',
       update
-    )
-  );
+    );
+
+  });
 
   update();
 }
 
-
 // =========================================================
-// APPOINTMENT FORM -> WHATSAPP APPOINTMENT DESK
+// APPOINTMENT FORM -> WHATSAPP
 // =========================================================
-
 const form = $('#appointmentForm');
 
 if (form) {
@@ -390,12 +400,10 @@ if (form) {
 
 }
 
-
 // =========================================================
-// ELDER-FRIENDLY MOBILE ACTION BAR
-// Always keep this exactly: Call | WhatsApp | Book.
+// MOBILE BOTTOM BAR
+// Call | WhatsApp | Book
 // =========================================================
-
 const mobileActions =
   $('.mobile-actions');
 
@@ -431,15 +439,9 @@ if (mobileActions) {
 
 }
 
-
 // =========================================================
-// CONTEXTUAL ORTHOPAEDIC TEAM CTA
-// Homepage: only sections deliberately marked
-// data-team-cta="true"
-// to keep the page human and less repetitive.
-// Internal pages retain the previous behavior.
+// ORTHOPAEDIC TEAM CTA
 // =========================================================
-
 const isHomePage =
   document.body.classList.contains(
     'home-page'
@@ -502,3 +504,317 @@ teamSections.forEach((section) => {
   );
 
 });
+
+// =========================================================
+// V3.5 FIVE-SLIDE HOSPITAL SHOWCASE
+// Auto changes every 7 seconds.
+// Supports arrows, dots, keyboard and mobile swipe.
+// =========================================================
+(() => {
+
+  const slider =
+    $('#japHomeSlider');
+
+  if (!slider) {
+    return;
+  }
+
+  const slides =
+    $$('.home-slide', slider);
+
+  const dots =
+    $$('.home-slider-dot', slider);
+
+  const prev =
+    $('.home-slider-arrow.prev', slider);
+
+  const next =
+    $('.home-slider-arrow.next', slider);
+
+  const progress =
+    $('#homeSliderProgress');
+
+  let index = 0;
+  let timer = null;
+  let touchStartX = 0;
+
+  const interval = 7000;
+
+  // Reset and start the progress animation.
+  const animateProgress = () => {
+
+    if (!progress) {
+      return;
+    }
+
+    progress.style.animation =
+      'none';
+
+    void progress.offsetWidth;
+
+    progress.style.animation =
+      `homeSliderProgress ${interval}ms linear forwards`;
+
+  };
+
+  // Stop automatic slide movement.
+  const stopAuto = () => {
+
+    if (timer) {
+
+      clearInterval(timer);
+
+      timer = null;
+    }
+
+    if (progress) {
+
+      progress.style.animationPlayState =
+        'paused';
+    }
+
+  };
+
+  // Start automatic slide movement.
+  const startAuto = () => {
+
+    stopAuto();
+
+    animateProgress();
+
+    timer = setInterval(
+      () => {
+
+        showSlide(
+          index + 1,
+          false
+        );
+
+        animateProgress();
+
+      },
+      interval
+    );
+
+  };
+
+  // Show a selected slide.
+  const showSlide = (
+    newIndex,
+    restart = true
+  ) => {
+
+    index =
+      (
+        newIndex +
+        slides.length
+      ) %
+      slides.length;
+
+    slides.forEach(
+      (slide, i) => {
+
+        const active =
+          i === index;
+
+        slide.classList.toggle(
+          'active',
+          active
+        );
+
+        slide.setAttribute(
+          'aria-hidden',
+          active
+            ? 'false'
+            : 'true'
+        );
+
+      }
+    );
+
+    dots.forEach(
+      (dot, i) => {
+
+        const active =
+          i === index;
+
+        dot.classList.toggle(
+          'active',
+          active
+        );
+
+        dot.setAttribute(
+          'aria-current',
+          active
+            ? 'true'
+            : 'false'
+        );
+
+      }
+    );
+
+    if (restart) {
+      startAuto();
+    }
+
+  };
+
+  // Previous / next buttons.
+  prev?.addEventListener(
+    'click',
+    () => {
+      showSlide(index - 1);
+    }
+  );
+
+  next?.addEventListener(
+    'click',
+    () => {
+      showSlide(index + 1);
+    }
+  );
+
+  // Slider dots.
+  dots.forEach(
+    (dot, i) => {
+
+      dot.addEventListener(
+        'click',
+        () => {
+          showSlide(i);
+        }
+      );
+
+    }
+  );
+
+  // Pause while mouse is over slider.
+  slider.addEventListener(
+    'mouseenter',
+    stopAuto
+  );
+
+  slider.addEventListener(
+    'mouseleave',
+    startAuto
+  );
+
+  // Pause while keyboard focus is inside slider.
+  slider.addEventListener(
+    'focusin',
+    stopAuto
+  );
+
+  slider.addEventListener(
+    'focusout',
+    startAuto
+  );
+
+  // Mobile swipe start.
+  slider.addEventListener(
+    'touchstart',
+    (e) => {
+
+      touchStartX =
+        e.changedTouches[0].clientX;
+
+      stopAuto();
+
+    },
+    {
+      passive: true
+    }
+  );
+
+  // Mobile swipe end.
+  slider.addEventListener(
+    'touchend',
+    (e) => {
+
+      const delta =
+        e.changedTouches[0].clientX -
+        touchStartX;
+
+      if (
+        Math.abs(delta) > 45
+      ) {
+
+        showSlide(
+          index +
+          (
+            delta < 0
+              ? 1
+              : -1
+          )
+        );
+
+      } else {
+
+        startAuto();
+
+      }
+
+    },
+    {
+      passive: true
+    }
+  );
+
+  slider.addEventListener(
+    'touchcancel',
+    startAuto,
+    {
+      passive: true
+    }
+  );
+
+  // Keyboard arrows.
+  slider.addEventListener(
+    'keydown',
+    (e) => {
+
+      if (
+        e.key === 'ArrowLeft'
+      ) {
+
+        showSlide(
+          index - 1
+        );
+
+      }
+
+      if (
+        e.key === 'ArrowRight'
+      ) {
+
+        showSlide(
+          index + 1
+        );
+
+      }
+
+    }
+  );
+
+  // Pause slider when browser tab is not visible.
+  document.addEventListener(
+    'visibilitychange',
+    () => {
+
+      if (document.hidden) {
+
+        stopAuto();
+
+      } else {
+
+        startAuto();
+
+      }
+
+    }
+  );
+
+  // Start slideshow.
+  startAuto();
+
+})();
