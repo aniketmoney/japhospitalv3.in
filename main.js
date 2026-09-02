@@ -2,7 +2,9 @@ const $ = (s, root = document) => root.querySelector(s);
 const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 
 // =========================================================
-// SITE-WIDE TRUST + CONTACT SETTINGS
+// V3.4 SITE-WIDE TRUST + CONTACT SETTINGS
+// Update the Google figures here after periodically checking
+// the live Google Business profile.
 // =========================================================
 const SITE_TRUST = {
   rating: '4.9/5',
@@ -15,16 +17,12 @@ const SITE_CONTACT = {
   whatsappPhone: '919909916112'
 };
 
-// =========================================================
-// GOOGLE REVIEW BADGE
-// =========================================================
+// Keep the header Google-rating presentation identical on every page.
 $$('.brand-strip-rating').forEach((rating) => {
   rating.classList.add('rating-enhanced', 'rating-mobile-card');
-
   rating.href = SITE_TRUST.reviewUrl;
   rating.target = '_blank';
   rating.rel = 'noopener';
-
   rating.setAttribute(
     'aria-label',
     `See JAP Hospital Google reviews — rated ${SITE_TRUST.rating} from ${SITE_TRUST.reviews}`
@@ -32,21 +30,13 @@ $$('.brand-strip-rating').forEach((rating) => {
 
   rating.innerHTML = `
     <span class="rating-stars" aria-hidden="true">★★★★★</span>
-    <span class="rating-score">
-      <strong>${SITE_TRUST.rating}</strong>
-    </span>
-    <span class="rating-count">
-      ${SITE_TRUST.reviews}
-    </span>
-    <span class="rating-link">
-      See what our patients say →
-    </span>
+    <span class="rating-score"><strong>${SITE_TRUST.rating}</strong></span>
+    <span class="rating-count">${SITE_TRUST.reviews}</span>
+    <span class="rating-link">See what our patients say →</span>
   `;
 });
 
-// =========================================================
-// HOMEPAGE GOOGLE REVIEW CARD
-// =========================================================
+// Keep the larger homepage Google proof card in sync with the header.
 $$('.google-proof-card').forEach((card) => {
   card.href = SITE_TRUST.reviewUrl;
   card.target = '_blank';
@@ -58,29 +48,17 @@ $$('.google-proof-card').forEach((card) => {
   );
 
   card.innerHTML = `
-    <div class="google-proof-stars" aria-hidden="true">
-      ★★★★★
-    </div>
-
-    <div class="google-proof-score">
-      ${SITE_TRUST.rating}
-    </div>
+    <div class="google-proof-stars" aria-hidden="true">★★★★★</div>
+    <div class="google-proof-score">${SITE_TRUST.rating}</div>
 
     <div class="google-proof-copy">
-      <strong>
-        ${SITE_TRUST.reviews}
-      </strong>
-
-      <span>
-        See what our patients say →
-      </span>
+      <strong>${SITE_TRUST.reviews}</strong>
+      <span>See what our patients say →</span>
     </div>
   `;
 });
 
-// =========================================================
-// PHONE PURPOSE LABELS
-// =========================================================
+// Make the two phone purposes clear wherever these links appear.
 $$(`a[href="tel:${SITE_CONTACT.receptionPhone}"]`).forEach((link) => {
   link.setAttribute(
     'aria-label',
@@ -108,15 +86,12 @@ const header = $('.header');
 
 window.addEventListener(
   'scroll',
-  () => {
+  () =>
     header?.classList.toggle(
       'scrolled',
       window.scrollY > 8
-    );
-  },
-  {
-    passive: true
-  }
+    ),
+  { passive: true }
 );
 
 // =========================================================
@@ -150,12 +125,12 @@ menu?.addEventListener('click', (e) => {
   }
 });
 
-$$('.mobile-links a').forEach((a) => {
+$$('.mobile-links a').forEach((a) =>
   a.addEventListener(
     'click',
     closeMenu
-  );
-});
+  )
+);
 
 // =========================================================
 // SCROLL REVEAL
@@ -165,7 +140,7 @@ const revealItems = $$('[data-reveal]');
 if ('IntersectionObserver' in window) {
 
   const io = new IntersectionObserver(
-    (entries) => {
+    (entries) =>
       entries.forEach((entry) => {
 
         if (entry.isIntersecting) {
@@ -179,22 +154,21 @@ if ('IntersectionObserver' in window) {
           );
         }
 
-      });
-    },
+      }),
     {
       threshold: 0.12
     }
   );
 
-  revealItems.forEach((el) => {
-    io.observe(el);
-  });
+  revealItems.forEach((el) =>
+    io.observe(el)
+  );
 
 } else {
 
-  revealItems.forEach((el) => {
-    el.classList.add('visible');
-  });
+  revealItems.forEach((el) =>
+    el.classList.add('visible')
+  );
 
 }
 
@@ -291,10 +265,8 @@ document.addEventListener(
   (e) => {
 
     if (e.key === 'Escape') {
-
       closeMenu();
       closeVideo();
-
     }
 
   }
@@ -353,20 +325,18 @@ if (checker) {
 
   };
 
-  boxes.forEach((b) => {
-
+  boxes.forEach((b) =>
     b.addEventListener(
       'change',
       update
-    );
-
-  });
+    )
+  );
 
   update();
 }
 
 // =========================================================
-// APPOINTMENT FORM -> WHATSAPP
+// APPOINTMENT FORM -> WHATSAPP APPOINTMENT DESK
 // =========================================================
 const form = $('#appointmentForm');
 
@@ -401,8 +371,8 @@ if (form) {
 }
 
 // =========================================================
-// MOBILE BOTTOM BAR
-// Call | WhatsApp | Book
+// ELDER-FRIENDLY MOBILE ACTION BAR
+// Always keep this exactly: Call | WhatsApp | Book.
 // =========================================================
 const mobileActions =
   $('.mobile-actions');
@@ -436,11 +406,13 @@ if (mobileActions) {
       Book
     </a>
   `;
-
 }
 
 // =========================================================
-// ORTHOPAEDIC TEAM CTA
+// CONTEXTUAL ORTHOPAEDIC TEAM CTA
+// Homepage: only sections deliberately marked data-team-cta="true"
+// to keep the page human and less repetitive.
+// Internal pages retain the previous behavior.
 // =========================================================
 const isHomePage =
   document.body.classList.contains(
@@ -506,8 +478,8 @@ teamSections.forEach((section) => {
 });
 
 // =========================================================
-// V3.5 FIVE-SLIDE HOSPITAL SHOWCASE
-// Auto changes every 7 seconds.
+// V3.6 FIVE-SLIDE HOSPITAL SHOWCASE
+// Auto changes every 5 seconds.
 // Supports arrows, dots, keyboard and mobile swipe.
 // =========================================================
 (() => {
@@ -538,9 +510,8 @@ teamSections.forEach((section) => {
   let timer = null;
   let touchStartX = 0;
 
-  const interval = 7000;
+  const interval = 5000;
 
-  // Reset and start the progress animation.
   const animateProgress = () => {
 
     if (!progress) {
@@ -557,25 +528,24 @@ teamSections.forEach((section) => {
 
   };
 
-  // Stop automatic slide movement.
   const stopAuto = () => {
 
     if (timer) {
 
       clearInterval(timer);
-
       timer = null;
+
     }
 
     if (progress) {
 
       progress.style.animationPlayState =
         'paused';
+
     }
 
   };
 
-  // Start automatic slide movement.
   const startAuto = () => {
 
     stopAuto();
@@ -598,7 +568,6 @@ teamSections.forEach((section) => {
 
   };
 
-  // Show a selected slide.
   const showSlide = (
     newIndex,
     restart = true
@@ -659,7 +628,6 @@ teamSections.forEach((section) => {
 
   };
 
-  // Previous / next buttons.
   prev?.addEventListener(
     'click',
     () => {
@@ -674,7 +642,6 @@ teamSections.forEach((section) => {
     }
   );
 
-  // Slider dots.
   dots.forEach(
     (dot, i) => {
 
@@ -688,7 +655,6 @@ teamSections.forEach((section) => {
     }
   );
 
-  // Pause while mouse is over slider.
   slider.addEventListener(
     'mouseenter',
     stopAuto
@@ -699,7 +665,6 @@ teamSections.forEach((section) => {
     startAuto
   );
 
-  // Pause while keyboard focus is inside slider.
   slider.addEventListener(
     'focusin',
     stopAuto
@@ -710,7 +675,6 @@ teamSections.forEach((section) => {
     startAuto
   );
 
-  // Mobile swipe start.
   slider.addEventListener(
     'touchstart',
     (e) => {
@@ -726,7 +690,6 @@ teamSections.forEach((section) => {
     }
   );
 
-  // Mobile swipe end.
   slider.addEventListener(
     'touchend',
     (e) => {
@@ -768,7 +731,6 @@ teamSections.forEach((section) => {
     }
   );
 
-  // Keyboard arrows.
   slider.addEventListener(
     'keydown',
     (e) => {
@@ -796,7 +758,6 @@ teamSections.forEach((section) => {
     }
   );
 
-  // Pause slider when browser tab is not visible.
   document.addEventListener(
     'visibilitychange',
     () => {
@@ -814,7 +775,6 @@ teamSections.forEach((section) => {
     }
   );
 
-  // Start slideshow.
   startAuto();
 
 })();
