@@ -1712,3 +1712,202 @@ main,.container,.home-showcase,.home-slider,.home-slide,.home-slide-content,.foo
     height:235px;
   }
 }
+
+/* =========================================================
+   V3.11 — STRONG, VISIBLE V2-STYLE HERO TRANSITION
+   This only changes animation states. Existing V3 layout,
+   image positioning and mobile alignment remain unchanged.
+   ========================================================= */
+.home-slide{
+  opacity:0!important;
+  visibility:hidden;
+  transform:translate3d(30px,0,0)!important;
+  pointer-events:none;
+  z-index:0;
+  transition:
+    opacity 1s cubic-bezier(.22,.61,.36,1),
+    transform 1s cubic-bezier(.22,.61,.36,1)!important;
+  will-change:opacity,transform;
+}
+
+.home-slide.is-entering{
+  opacity:0!important;
+  visibility:visible!important;
+  transform:translate3d(32px,0,0)!important;
+  pointer-events:none;
+  z-index:3;
+}
+
+.home-slide.active{
+  opacity:1!important;
+  visibility:visible!important;
+  transform:translate3d(0,0,0)!important;
+  pointer-events:auto;
+  z-index:3;
+}
+
+.home-slide.is-leaving{
+  opacity:0!important;
+  visibility:visible!important;
+  transform:translate3d(-28px,0,0)!important;
+  pointer-events:none;
+  z-index:2;
+}
+
+/* Image focus / zoom movement — visibly similar to the V2 slider. */
+.home-slide>img,
+.home-slide.knee>img,
+.home-slide.spine>img,
+.home-slide.doctor>img,
+.home-slide.rosa>img,
+.home-slide.lab>img{
+  opacity:.70;
+  filter:blur(2px) saturate(.92);
+  transform:scale(1.09) translateX(-14px)!important;
+  transition:
+    transform 5s cubic-bezier(.18,.7,.22,1),
+    opacity .95s ease,
+    filter .95s ease!important;
+  will-change:transform,opacity,filter;
+}
+
+.home-slide.is-entering>img{
+  opacity:.70;
+  filter:blur(2px) saturate(.92);
+  transform:scale(1.09) translateX(-14px)!important;
+}
+
+.home-slide.active>img{
+  opacity:1;
+  filter:blur(0) saturate(1);
+  transform:scale(1.025) translateX(0)!important;
+}
+
+.home-slide.is-leaving>img{
+  opacity:.58;
+  filter:blur(1.5px) saturate(.94);
+  transform:scale(1.06) translateX(12px)!important;
+}
+
+/* Desktop/tablet text card enters separately from the image. */
+.home-slide-content{
+  transition:
+    opacity .72s ease .08s,
+    transform .9s cubic-bezier(.2,.72,.2,1) .08s!important;
+}
+
+.home-slide.is-entering .home-slide-content{
+  opacity:0!important;
+  transform:translate(42px,-50%)!important;
+}
+
+.home-slide.active .home-slide-content{
+  opacity:1!important;
+  transform:translate(0,-50%)!important;
+}
+
+.home-slide.is-leaving .home-slide-content{
+  opacity:0!important;
+  transform:translate(-20px,-50%)!important;
+}
+
+/* Stagger the label, heading, copy and buttons after the card enters. */
+.home-slide-content>*{
+  opacity:0!important;
+  transform:translateY(18px)!important;
+  transition:
+    opacity .58s ease,
+    transform .72s cubic-bezier(.2,.72,.2,1)!important;
+  will-change:opacity,transform;
+}
+
+.home-slide.active .home-slide-content>*{
+  opacity:1!important;
+  transform:translateY(0)!important;
+}
+
+.home-slide.active .home-slide-content>*:nth-child(1){transition-delay:.22s!important}
+.home-slide.active .home-slide-content>*:nth-child(2){transition-delay:.32s!important}
+.home-slide.active .home-slide-content>*:nth-child(3){transition-delay:.42s!important}
+.home-slide.active .home-slide-content>*:nth-child(4){transition-delay:.50s!important}
+.home-slide.active .home-slide-content>*:nth-child(5){transition-delay:.58s!important}
+.home-slide.active .home-slide-content>*:nth-child(6){transition-delay:.64s!important}
+
+.home-slide.is-leaving .home-slide-content>*{
+  opacity:0!important;
+  transform:translateY(-8px)!important;
+  transition-delay:0s!important;
+}
+
+/* Keep the proven image-first mobile layout exactly where it is.
+   Only the animation direction changes on phones. */
+@media(max-width:700px){
+  .home-slide{
+    transform:translate3d(14px,0,0)!important;
+  }
+
+  .home-slide.is-entering{
+    transform:translate3d(14px,0,0)!important;
+  }
+
+  .home-slide.active{
+    transform:translate3d(0,0,0)!important;
+  }
+
+  .home-slide.is-leaving{
+    transform:translate3d(-14px,0,0)!important;
+  }
+
+  .home-slide>img,
+  .home-slide.knee>img,
+  .home-slide.spine>img,
+  .home-slide.doctor>img,
+  .home-slide.rosa>img,
+  .home-slide.lab>img{
+    transform:scale(1.035) translateX(-6px)!important;
+  }
+
+  .home-slide.is-entering>img{
+    transform:scale(1.035) translateX(-6px)!important;
+  }
+
+  .home-slide.active>img{
+    transform:scale(1) translateX(0)!important;
+  }
+
+  .home-slide.is-leaving>img{
+    transform:scale(1.02) translateX(5px)!important;
+  }
+
+  .home-slide.is-entering .home-slide-content{
+    opacity:0!important;
+    transform:translateY(20px)!important;
+  }
+
+  .home-slide.active .home-slide-content{
+    opacity:1!important;
+    transform:translateY(0)!important;
+  }
+
+  .home-slide.is-leaving .home-slide-content{
+    opacity:0!important;
+    transform:translateY(-10px)!important;
+  }
+
+  .home-slide-content>*{
+    transform:translateY(12px)!important;
+  }
+
+  .home-slide.active .home-slide-content>*{
+    transform:translateY(0)!important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .home-slide,
+  .home-slide>img,
+  .home-slide-content,
+  .home-slide-content>*{
+    transition:none!important;
+  }
+}
