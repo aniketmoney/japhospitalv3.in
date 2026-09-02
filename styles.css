@@ -468,3 +468,190 @@ h1,h2,h3,h4{font-family:Poppins,Inter,sans-serif;line-height:1.15;color:var(--na
   .why-family-grid article{min-height:115px}
   .support-service-row{grid-template-columns:1fr}
 }
+
+
+/* =========================================================
+   V3.6 — VISUAL FLOW UPDATE
+   Right-side slideshow copy, stronger trust/Why JAP colour,
+   and doctor profile moved directly after About JAP Hospital.
+   ========================================================= */
+
+/* Desktop slideshow: keep the hospital image visible and use the open right side for copy. */
+@media (min-width:761px){
+  .home-slide-shade{
+    background:linear-gradient(270deg,
+      rgba(4,28,50,.94) 0%,
+      rgba(4,32,57,.86) 34%,
+      rgba(4,32,57,.56) 58%,
+      rgba(4,32,57,.18) 78%,
+      rgba(4,32,57,.06) 100%);
+  }
+  .home-slide-content{
+    padding-left:52%;
+    padding-right:2%;
+    align-items:flex-start;
+  }
+  .home-slide-content h1,
+  .home-slide-content h2{
+    max-width:620px;
+  }
+  .home-slide-content p{
+    max-width:610px;
+  }
+  .home-slide:first-of-type .slide-kicker{
+    font-size:1rem;
+    min-height:42px;
+    padding:9px 16px;
+    letter-spacing:.035em;
+    background:rgba(214,40,40,.92);
+    border-color:rgba(255,255,255,.24);
+    color:#fff;
+    box-shadow:0 10px 30px rgba(0,0,0,.16);
+  }
+}
+
+/* Trust bar: coloured cards instead of a flat colourless strip. */
+.home-trust-bar{
+  padding:16px 0;
+  background:linear-gradient(180deg,#f7fbff,#eef6fb);
+  border-bottom:1px solid var(--line);
+}
+.home-trust-grid{
+  gap:12px;
+}
+.home-trust-grid>div,
+.home-trust-grid>a{
+  min-height:94px;
+  border:0;
+  border-radius:18px;
+  padding:15px 12px;
+  box-shadow:0 10px 25px rgba(6,53,95,.08);
+  transition:transform .22s ease,box-shadow .22s ease;
+}
+.home-trust-grid>div:hover,
+.home-trust-grid>a:hover{
+  transform:translateY(-3px);
+  box-shadow:0 15px 32px rgba(6,53,95,.13);
+}
+.home-trust-grid>:nth-child(1){
+  background:linear-gradient(135deg,var(--navy),var(--blue));
+}
+.home-trust-grid>:nth-child(2){
+  background:linear-gradient(135deg,#fff0f1,#ffe2e4);
+  border:1px solid rgba(214,40,40,.14);
+}
+.home-trust-grid>:nth-child(3){
+  background:linear-gradient(135deg,#eaf6ff,#d9effc);
+  border:1px solid rgba(11,79,138,.14);
+}
+.home-trust-grid>:nth-child(4){
+  background:linear-gradient(135deg,#fff6eb,#fff0dd);
+  border:1px solid rgba(214,40,40,.10);
+}
+.home-trust-grid>:nth-child(5){
+  background:linear-gradient(135deg,var(--red-dark),var(--red));
+}
+.home-trust-grid>:nth-child(1) strong,
+.home-trust-grid>:nth-child(1) span,
+.home-trust-grid>:nth-child(5) strong,
+.home-trust-grid>:nth-child(5) span{
+  color:#fff;
+}
+.home-trust-grid>:nth-child(2) strong{color:var(--red-dark)}
+.home-trust-grid>:nth-child(3) strong{color:var(--blue)}
+.home-trust-grid>:nth-child(4) strong{color:var(--navy)}
+.home-trust-grid>a:hover strong{color:inherit}
+
+/* Why JAP: use the hospital's navy, blue and red palette while keeping it clean. */
+.why-family-grid article{
+  position:relative;
+  overflow:hidden;
+  border:0;
+  box-shadow:0 12px 28px rgba(6,53,95,.09);
+}
+.why-family-grid article::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:5px;
+  background:var(--blue);
+}
+.why-family-grid article:nth-child(1){
+  background:linear-gradient(135deg,var(--navy),#0a477b);
+}
+.why-family-grid article:nth-child(1) h3,
+.why-family-grid article:nth-child(1) span,
+.why-family-grid article:nth-child(7) h3,
+.why-family-grid article:nth-child(7) span{color:#fff}
+.why-family-grid article:nth-child(1) span,
+.why-family-grid article:nth-child(7) span{
+  background:rgba(255,255,255,.16);
+}
+.why-family-grid article:nth-child(1)::after{background:#ff7b82}
+.why-family-grid article:nth-child(2){background:linear-gradient(135deg,#fff0f1,#ffe3e5)}
+.why-family-grid article:nth-child(2) span{background:var(--red)}
+.why-family-grid article:nth-child(2)::after{background:var(--red)}
+.why-family-grid article:nth-child(3){background:linear-gradient(135deg,#e9f5ff,#dceffc)}
+.why-family-grid article:nth-child(3) span{background:var(--blue)}
+.why-family-grid article:nth-child(3)::after{background:var(--blue-2)}
+.why-family-grid article:nth-child(4){background:linear-gradient(135deg,#f4f9fd,#e8f3fa)}
+.why-family-grid article:nth-child(4) span{background:#0d678f}
+.why-family-grid article:nth-child(4)::after{background:#39a0c9}
+.why-family-grid article:nth-child(5){background:linear-gradient(135deg,#fff8ee,#fff0dc)}
+.why-family-grid article:nth-child(5) span{background:var(--navy)}
+.why-family-grid article:nth-child(5)::after{background:#e9a23b}
+.why-family-grid article:nth-child(6){background:linear-gradient(135deg,#fff3f4,#fbe8ea)}
+.why-family-grid article:nth-child(6) span{background:var(--red-dark)}
+.why-family-grid article:nth-child(6)::after{background:var(--red-dark)}
+.why-family-grid article:nth-child(7){
+  background:linear-gradient(135deg,var(--blue),var(--navy));
+}
+.why-family-grid article:nth-child(7)::after{background:#79d6ff}
+
+/* The doctor section now sits directly after About JAP Hospital. */
+.doctor-after-hospital{
+  padding-top:28px;
+  padding-bottom:72px;
+}
+
+@media(max-width:1000px) and (min-width:761px){
+  .home-slide-content{
+    padding-left:44%;
+    padding-right:3%;
+  }
+  .home-slide:first-of-type .slide-kicker{
+    font-size:.88rem;
+  }
+}
+
+@media(max-width:760px){
+  /* On mobile retain the bottom overlay so text remains readable. */
+  .home-slide-content{
+    padding:24px 20px 68px;
+  }
+  .home-slide:first-of-type .slide-kicker{
+    font-size:.74rem;
+    min-height:32px;
+    padding:6px 10px;
+    background:rgba(214,40,40,.9);
+    color:#fff;
+  }
+  .home-trust-bar{padding:10px 0}
+  .home-trust-grid{gap:8px;padding:0 2px}
+  .home-trust-grid>div,
+  .home-trust-grid>a{
+    min-width:122px;
+    min-height:78px;
+    border-radius:14px;
+    padding:10px 9px;
+  }
+  .why-family-grid article{
+    box-shadow:0 8px 20px rgba(6,53,95,.08);
+  }
+  .doctor-after-hospital{
+    padding-top:10px;
+    padding-bottom:56px;
+  }
+}
