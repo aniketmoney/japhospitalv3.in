@@ -1234,3 +1234,196 @@ main,.container,.home-showcase,.home-slider,.home-slide,.home-slide-content,.foo
   .doctor-experience-strip>span,
   .doctor-credential-grid>div{min-height:auto}
 }
+
+
+/* =========================================================
+   V3.9 — FINAL HIERARCHY / TRUST / CONVERSION REFINEMENT
+   Keeps the established V3 visual system, adds clearer patient-first
+   hierarchy, surgeon attribution, and a stronger mobile-safe layout.
+   ========================================================= */
+
+/* Navigation: allow the simplified menu to breathe on larger laptops. */
+@media (min-width:1051px){
+  .nav{gap:20px}
+  .nav-links>a,.dropdown>button{padding:10px 10px;font-size:.91rem}
+  .nav-actions .btn{padding-left:16px;padding-right:16px}
+}
+
+/* First-slide message hierarchy */
+.home-slide.knee .home-slide-content h1{
+  font-size:clamp(2.7rem,4.6vw,5rem);
+  line-height:.98;
+  letter-spacing:-.045em;
+}
+.home-slide.knee .hero-service-title{
+  display:inline-block;
+  margin-bottom:7px;
+  color:var(--navy);
+  font-family:Poppins,Inter,sans-serif;
+  font-size:clamp(1.08rem,1.55vw,1.45rem);
+  line-height:1.25;
+}
+.home-slide.knee .home-slide-content>p span{
+  color:#4b6173;
+  font-weight:650;
+}
+.home-slide.knee .slide-doctor-line strong{
+  color:var(--navy);
+  font-size:1rem;
+}
+.home-slide.knee .slide-doctor-line span{
+  display:inline-block;
+  margin-top:4px;
+  color:#50687a;
+  font-size:.84rem;
+  line-height:1.45;
+}
+
+/* Stronger trust panel without making it feel like another hero. */
+.trust-v39{
+  padding:28px 0 30px;
+  background:linear-gradient(180deg,#fff,#f6fafd);
+  border-top:1px solid rgba(11,79,138,.08);
+  border-bottom:1px solid rgba(11,79,138,.12);
+}
+.trust-v39-head{text-align:center;margin-bottom:18px}
+.trust-v39-head .eyebrow{justify-content:center}
+.trust-v39-head h2{margin:6px 0 0;font-size:clamp(1.45rem,2.2vw,2rem)}
+.trust-v39-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;overflow:visible!important}
+.trust-v39-grid>div,.trust-v39-grid>a{
+  min-width:0!important;
+  min-height:118px!important;
+  padding:18px 16px!important;
+  border-radius:18px!important;
+  background:#fff!important;
+  border:1px solid rgba(11,79,138,.12)!important;
+  box-shadow:0 10px 28px rgba(6,53,95,.07)!important;
+  justify-content:center;
+}
+.trust-v39-grid>:nth-child(1){border-top:4px solid var(--blue)!important}
+.trust-v39-grid>:nth-child(2){border-top:4px solid var(--red)!important}
+.trust-v39-grid>:nth-child(3){border-top:4px solid #e7a828!important}
+.trust-v39-grid>:nth-child(4){border-top:4px solid var(--navy)!important}
+.trust-v39-grid>div strong,.trust-v39-grid>a strong{
+  color:var(--navy)!important;
+  font-size:1.03rem!important;
+  line-height:1.25;
+}
+.trust-v39-grid>div span,.trust-v39-grid>a span{
+  color:var(--muted)!important;
+  font-size:.75rem!important;
+  line-height:1.4;
+  max-width:190px;
+}
+
+/* Human About copy */
+.about-philosophy{
+  margin:20px 0 16px;
+  padding:17px 18px;
+  border-left:4px solid var(--red);
+  border-radius:0 16px 16px 0;
+  background:linear-gradient(135deg,#fff5f5,#f5faff);
+}
+.about-philosophy strong{display:block;color:var(--navy);margin-bottom:5px}
+.about-philosophy span{color:#40586a;font-size:.94rem;line-height:1.65}
+
+/* Doctor authority without turning the whole site into a personal page. */
+.doctor-understanding-line{
+  margin:13px 0 0!important;
+  padding:12px 14px;
+  border-radius:14px;
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.14);
+  color:#fff!important;
+  font-weight:700;
+}
+.doctor-credential-grid>div{min-height:86px}
+.doctor-attribution{margin-top:14px}
+
+/* Why JAP cards now contain one useful proof point, not just a label. */
+.why-family-grid article{justify-content:flex-start;gap:0}
+.why-family-grid article h3{margin-top:18px;margin-bottom:8px}
+.why-family-grid article p{margin:0;color:#526879;font-size:.82rem;line-height:1.55}
+.why-family-grid article:nth-child(1) p,.why-family-grid article:nth-child(7) p{color:rgba(255,255,255,.82)}
+
+/* ROSA visual hierarchy */
+.robotic-home-subtitle{
+  margin:-2px 0 14px;
+  color:var(--red-dark);
+  font-size:clamp(1.08rem,1.6vw,1.35rem);
+}
+.robot-process div{min-height:104px}
+
+/* Stories are now intentionally higher in the page and visually decisive. */
+.patient-stories-impact{background:linear-gradient(180deg,#fff,#f7fbfd)}
+.patient-stories-impact .section-head{max-width:760px}
+.impact-story-card{transition:transform .25s ease,box-shadow .25s ease}
+.impact-story-card:hover{transform:translateY(-5px);box-shadow:0 20px 44px rgba(6,53,95,.13)}
+
+/* Treatments heading */
+.home-treatments .section-head .lead{margin-top:7px;max-width:650px}
+
+/* Doaba section positioning statement */
+.doaba-head>h2{max-width:900px}
+.doaba-head>.lead{max-width:900px}
+.doaba-travel-note{margin-top:18px}
+
+/* Final CTA copy */
+.final-cta-location{
+  margin-top:12px;
+  color:#dbeaf4;
+  font-weight:750;
+  font-size:.84rem;
+}
+
+/* Responsive: never let the stronger copy destroy the slider alignment. */
+@media (max-width:1050px){
+  .trust-v39-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media (max-width:700px){
+  .trust-v39{padding:22px 0 24px}
+  .trust-v39-head{text-align:left;margin-bottom:14px}
+  .trust-v39-head .eyebrow{justify-content:flex-start}
+  .trust-v39-grid{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:9px!important;
+    overflow:visible!important;
+  }
+  .trust-v39-grid>div,.trust-v39-grid>a{
+    min-width:0!important;
+    min-height:105px!important;
+    padding:14px 11px!important;
+  }
+  .trust-v39-grid>div strong,.trust-v39-grid>a strong{font-size:.86rem!important}
+  .trust-v39-grid>div span,.trust-v39-grid>a span{font-size:.66rem!important}
+
+  /* V2 mobile principle: complete image first, readable text panel below. */
+  .home-slide.knee .home-slide-content h1{
+    font-size:clamp(1.82rem,8.1vw,2.3rem)!important;
+    line-height:1.02!important;
+  }
+  .home-slide.knee .hero-service-title{
+    color:#fff;
+    font-size:.98rem;
+    line-height:1.25;
+    margin-bottom:5px;
+  }
+  .home-slide.knee .home-slide-content>p span{color:#d7e4ef;font-size:.77rem}
+  .home-slide.knee .slide-doctor-line strong{color:#fff;font-size:.82rem}
+  .home-slide.knee .slide-doctor-line span{color:#c9dce9;font-size:.68rem;line-height:1.35}
+
+  .doctor-credential-grid{grid-template-columns:1fr 1fr}
+  .doctor-credential-grid>div{min-height:78px}
+  .why-family-grid article p{font-size:.76rem}
+  .robot-process div{min-height:0}
+  .final-cta-location{font-size:.76rem}
+}
+
+@media (max-width:430px){
+  .trust-v39-grid{grid-template-columns:1fr!important}
+  .trust-v39-grid>div,.trust-v39-grid>a{min-height:88px!important;align-items:flex-start!important;text-align:left!important}
+  .trust-v39-grid>div span,.trust-v39-grid>a span{max-width:none}
+  .doctor-credential-grid{grid-template-columns:1fr}
+}
