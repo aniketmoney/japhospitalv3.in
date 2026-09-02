@@ -1004,3 +1004,233 @@ main,.container,.home-showcase,.home-slider,.home-slide,.home-slide-content,.foo
   .home-slide-content .actions .btn{min-height:36px}
   .home-trust-grid>div,.home-trust-grid>a{min-width:108px}
 }
+
+/* =========================================================
+   V3.8 — PREMIUM TRUST REFINEMENT
+   Patient-first opening, earlier Why JAP, stronger surgeon
+   credentials and clearer Doaba positioning.
+   ========================================================= */
+
+/* Trust bar now carries hospital-level signals only.
+   Dr. Aman Singh's 6,000+ procedure figure is attributed in his section. */
+.home-trust-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+.home-trust-grid>:nth-child(4){
+  background:linear-gradient(135deg,#fff2f3,#ffe6e8);
+  border:1px solid rgba(214,40,40,.13);
+}
+.home-trust-grid>:nth-child(4) strong{color:var(--red-dark)}
+
+/* Bring the competitive answer closer to the first screen. */
+.why-jap-family{
+  background:
+    radial-gradient(circle at 8% 20%,rgba(11,79,138,.08),transparent 27%),
+    radial-gradient(circle at 92% 80%,rgba(214,40,40,.06),transparent 25%),
+    linear-gradient(180deg,#eef6fb 0%,#f8fbfd 100%);
+  border-top:1px solid rgba(11,79,138,.08);
+  border-bottom:1px solid rgba(11,79,138,.08);
+}
+.why-jap-family .compact-head{
+  max-width:760px;
+  margin-bottom:34px;
+}
+
+/* First slide: patient-oriented message gets the strongest hierarchy. */
+.home-slide.knee .home-slide-content h1{
+  max-width:590px!important;
+  letter-spacing:-.04em!important;
+}
+.home-slide.knee .slide-doctor-line{
+  padding-top:10px;
+  border-top:1px solid rgba(11,79,138,.12);
+}
+
+/* Dr. Aman Singh: make the credentials scannable, not paragraph-heavy. */
+.doctor-experience-strip{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  margin:20px 0 12px;
+}
+.doctor-experience-strip>span{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:84px;
+  padding:14px 16px;
+  border-radius:16px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(8px);
+}
+.doctor-experience-strip strong{
+  color:#fff;
+  font-family:Poppins,Inter,sans-serif;
+  font-size:1.22rem;
+  line-height:1.15;
+}
+.doctor-experience-strip small{
+  color:#cfe3f1;
+  font-size:.73rem;
+  font-weight:700;
+  margin-top:5px;
+}
+.doctor-credential-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  margin:0 0 20px;
+}
+.doctor-credential-grid>div{
+  min-height:82px;
+  padding:13px 14px;
+  border-radius:15px;
+  background:rgba(255,255,255,.075);
+  border:1px solid rgba(255,255,255,.13);
+}
+.doctor-credential-grid strong{
+  display:block;
+  color:#ffb3b8;
+  font-size:.77rem;
+  line-height:1.2;
+  text-transform:uppercase;
+  letter-spacing:.045em;
+  margin-bottom:5px;
+}
+.doctor-credential-grid span{
+  display:block;
+  color:#fff;
+  font-weight:700;
+  font-size:.84rem;
+  line-height:1.38;
+}
+.doctor-attribution{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin:2px 0 18px;
+  padding:9px 13px;
+  border-radius:999px;
+  background:#fff;
+  color:var(--navy);
+  font-weight:800;
+  font-size:.78rem;
+  box-shadow:0 8px 22px rgba(0,0,0,.12);
+}
+.doctor-attribution::before{
+  content:"✓";
+  width:22px;
+  height:22px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:var(--red);
+  color:#fff;
+  font-size:.68rem;
+}
+
+/* Doaba: strengthen the existing location section instead of adding another large block. */
+.doaba-head{
+  max-width:920px!important;
+  margin-bottom:34px!important;
+}
+.doaba-city-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:20px 0 16px;
+}
+.doaba-city-list span{
+  display:inline-flex;
+  align-items:center;
+  min-height:34px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:#fff;
+  border:1px solid rgba(11,79,138,.14);
+  color:var(--navy);
+  font-size:.78rem;
+  font-weight:800;
+  box-shadow:0 5px 14px rgba(6,53,95,.05);
+}
+.doaba-travel-note{
+  display:grid;
+  grid-template-columns:.72fr 1.28fr;
+  gap:18px;
+  align-items:center;
+  padding:18px 20px;
+  border-radius:18px;
+  background:linear-gradient(135deg,var(--navy),var(--blue));
+  color:#fff;
+  box-shadow:0 14px 34px rgba(6,53,95,.14);
+}
+.doaba-travel-note strong{
+  color:#fff;
+  font-family:Poppins,Inter,sans-serif;
+  font-size:.93rem;
+  line-height:1.35;
+}
+.doaba-travel-note span{
+  color:#d9eaf5;
+  font-size:.84rem;
+  line-height:1.55;
+}
+
+@media(max-width:1100px){
+  .home-trust-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .doctor-credential-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media(max-width:700px){
+  /* Keep the four trust signals compact but swipeable on smaller phones. */
+  .home-trust-grid{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(112px,1fr));
+    overflow-x:auto;
+    scroll-snap-type:x proximity;
+    scrollbar-width:none;
+  }
+  .home-trust-grid::-webkit-scrollbar{display:none}
+  .home-trust-grid>div,.home-trust-grid>a{scroll-snap-align:start}
+
+  .why-jap-family{padding-top:54px}
+
+  .home-slide.knee .home-slide-content h1{
+    font-size:clamp(1.48rem,7vw,1.92rem)!important;
+    line-height:1.08!important;
+  }
+
+  .doctor-experience-strip,
+  .doctor-credential-grid{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+  .doctor-experience-strip>span{min-height:76px;padding:12px}
+  .doctor-experience-strip strong{font-size:1.05rem}
+  .doctor-credential-grid>div{min-height:76px;padding:11px 12px}
+  .doctor-credential-grid strong{font-size:.68rem}
+  .doctor-credential-grid span{font-size:.76rem}
+  .doctor-attribution{
+    width:100%;
+    border-radius:14px;
+    justify-content:flex-start;
+    white-space:normal;
+    line-height:1.4;
+  }
+
+  .doaba-city-list{gap:6px;margin-top:16px}
+  .doaba-city-list span{font-size:.72rem;padding:6px 10px}
+  .doaba-travel-note{
+    grid-template-columns:1fr;
+    gap:7px;
+    padding:16px;
+  }
+}
+
+@media(max-width:430px){
+  .doctor-experience-strip,
+  .doctor-credential-grid{grid-template-columns:1fr}
+  .doctor-experience-strip>span,
+  .doctor-credential-grid>div{min-height:auto}
+}
