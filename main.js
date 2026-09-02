@@ -23,10 +23,12 @@ $$('.brand-strip-rating').forEach((rating) => {
   rating.href = SITE_TRUST.reviewUrl;
   rating.target = '_blank';
   rating.rel = 'noopener';
+
   rating.setAttribute(
     'aria-label',
     `See JAP Hospital Google reviews — rated ${SITE_TRUST.rating} from ${SITE_TRUST.reviews}`
   );
+
   rating.innerHTML = `
     <span class="rating-stars" aria-hidden="true">★★★★★</span>
     <span class="rating-score"><strong>${SITE_TRUST.rating}</strong></span>
@@ -40,13 +42,16 @@ $$('.google-proof-card').forEach((card) => {
   card.href = SITE_TRUST.reviewUrl;
   card.target = '_blank';
   card.rel = 'noopener';
+
   card.setAttribute(
     'aria-label',
     `See JAP Hospital Google reviews — rated ${SITE_TRUST.rating} from ${SITE_TRUST.reviews}`
   );
+
   card.innerHTML = `
     <div class="google-proof-stars" aria-hidden="true">★★★★★</div>
     <div class="google-proof-score">${SITE_TRUST.rating}</div>
+
     <div class="google-proof-copy">
       <strong>${SITE_TRUST.reviews}</strong>
       <span>See what our patients say →</span>
@@ -56,16 +61,166 @@ $$('.google-proof-card').forEach((card) => {
 
 // Make the two phone purposes clear wherever these links appear.
 $$(`a[href="tel:${SITE_CONTACT.receptionPhone}"]`).forEach((link) => {
-  link.setAttribute('aria-label', 'Call JAP Hospital Reception / Emergency');
+  link.setAttribute(
+    'aria-label',
+    'Call JAP Hospital Reception / Emergency'
+  );
+
   link.title = 'Reception / Emergency';
 });
 
 $$(`a[href*="wa.me/${SITE_CONTACT.whatsappPhone}"]`).forEach((link) => {
   if (!link.getAttribute('aria-label')) {
-    link.setAttribute('aria-label', 'WhatsApp JAP Hospital Appointment Desk');
+    link.setAttribute(
+      'aria-label',
+      'WhatsApp JAP Hospital Appointment Desk'
+    );
   }
+
   link.title = 'WhatsApp Appointment Desk';
 });
+
+// =========================================================
+// SIMPLIFIED SITE-WIDE NAVIGATION
+// =========================================================
+(() => {
+  const desktopNav = $('.nav-links');
+  const mobileNav = $('.mobile-links');
+
+  const current =
+    (
+      window.location.pathname.split('/').pop() ||
+      'index.html'
+    ).toLowerCase();
+
+  const treatmentPages = [
+    'orthopaedics.html',
+    'knee-replacement.html',
+    'hip-replacement.html',
+    'spine-surgery.html',
+    'arthroscopy-sports-injury.html',
+    'trauma-fracture-care.html',
+    'physiotherapy-rehabilitation.html'
+  ];
+
+  if (desktopNav) {
+    desktopNav.innerHTML = `
+      <a
+        href="index.html"
+        ${current === 'index.html' ? 'class="active"' : ''}
+      >
+        Home
+      </a>
+
+      <div class="dropdown">
+        <button
+          type="button"
+          ${treatmentPages.includes(current) ? 'class="active"' : ''}
+        >
+          Treatments ▾
+        </button>
+
+        <div class="dropdown-menu">
+          <a href="orthopaedics.html">
+            Orthopaedics Overview
+          </a>
+
+          <a href="robotic-knee-replacement.html">
+            Robotic Knee Replacement
+          </a>
+
+          <a href="knee-replacement.html">
+            Knee Replacement
+          </a>
+
+          <a href="hip-replacement.html">
+            Hip Replacement
+          </a>
+
+          <a href="spine-surgery.html">
+            Spine Surgery
+          </a>
+
+          <a href="arthroscopy-sports-injury.html">
+            Arthroscopy & Sports Injury
+          </a>
+
+          <a href="trauma-fracture-care.html">
+            Trauma & Fracture Care
+          </a>
+
+          <a href="physiotherapy-rehabilitation.html">
+            Physiotherapy & Rehabilitation
+          </a>
+        </div>
+      </div>
+
+      <a
+        href="robotic-knee-replacement.html"
+        ${current === 'robotic-knee-replacement.html' ? 'class="active"' : ''}
+      >
+        Robotic Knee
+      </a>
+
+      <a
+        href="doctor-aman-singh.html"
+        ${current === 'doctor-aman-singh.html' ? 'class="active"' : ''}
+      >
+        Dr. Aman
+      </a>
+
+      <a
+        href="about.html"
+        ${current === 'about.html' ? 'class="active"' : ''}
+      >
+        About
+      </a>
+
+      <a href="index.html#patient-stories">
+        Patient Stories
+      </a>
+
+      <a
+        href="contact.html"
+        ${current === 'contact.html' ? 'class="active"' : ''}
+      >
+        Contact
+      </a>
+    `;
+  }
+
+  if (mobileNav) {
+    mobileNav.innerHTML = `
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="orthopaedics.html">
+        Treatments
+      </a>
+
+      <a href="robotic-knee-replacement.html">
+        Robotic Knee Replacement
+      </a>
+
+      <a href="doctor-aman-singh.html">
+        Dr. Aman Singh
+      </a>
+
+      <a href="about.html">
+        About JAP Hospital
+      </a>
+
+      <a href="index.html#patient-stories">
+        Patient Stories
+      </a>
+
+      <a href="contact.html">
+        Contact / Appointment
+      </a>
+    `;
+  }
+})();
 
 // =========================================================
 // HEADER SCROLL EFFECT
@@ -74,8 +229,14 @@ const header = $('.header');
 
 window.addEventListener(
   'scroll',
-  () => header?.classList.toggle('scrolled', window.scrollY > 8),
-  { passive: true }
+  () =>
+    header?.classList.toggle(
+      'scrolled',
+      window.scrollY > 8
+    ),
+  {
+    passive: true
+  }
 );
 
 // =========================================================
@@ -93,15 +254,30 @@ function closeMenu() {
   document.body.classList.remove('no-scroll');
 }
 
-$('#menuBtn')?.addEventListener('click', openMenu);
-$('#mobileClose')?.addEventListener('click', closeMenu);
+$('#menuBtn')?.addEventListener(
+  'click',
+  openMenu
+);
 
-menu?.addEventListener('click', (e) => {
-  if (e.target === menu) closeMenu();
-});
+$('#mobileClose')?.addEventListener(
+  'click',
+  closeMenu
+);
+
+menu?.addEventListener(
+  'click',
+  (e) => {
+    if (e.target === menu) {
+      closeMenu();
+    }
+  }
+);
 
 $$('.mobile-links a').forEach((a) => {
-  a.addEventListener('click', closeMenu);
+  a.addEventListener(
+    'click',
+    closeMenu
+  );
 });
 
 // =========================================================
@@ -114,16 +290,27 @@ if ('IntersectionObserver' in window) {
     (entries) =>
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          io.unobserve(entry.target);
+          entry.target.classList.add(
+            'visible'
+          );
+
+          io.unobserve(
+            entry.target
+          );
         }
       }),
-    { threshold: 0.12 }
+    {
+      threshold: 0.12
+    }
   );
 
-  revealItems.forEach((el) => io.observe(el));
+  revealItems.forEach((el) => {
+    io.observe(el);
+  });
 } else {
-  revealItems.forEach((el) => el.classList.add('visible'));
+  revealItems.forEach((el) => {
+    el.classList.add('visible');
+  });
 }
 
 // =========================================================
@@ -134,48 +321,91 @@ const modalVideo = $('#patientVideo');
 const modalTitle = $('#videoTitle');
 
 $$('[data-video]').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    if (!modal || !modalVideo) return;
+  btn.addEventListener(
+    'click',
+    () => {
+      if (!modal || !modalVideo) {
+        return;
+      }
 
-    modalTitle.textContent = btn.dataset.title || 'Patient Story';
-    modalVideo.src = btn.dataset.video || '';
+      modalTitle.textContent =
+        btn.dataset.title ||
+        'Patient Story';
 
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden', 'false');
+      modalVideo.src =
+        btn.dataset.video ||
+        '';
 
-    document.body.classList.add('no-scroll');
+      modal.classList.add(
+        'open'
+      );
 
-    modalVideo
-      .play()
-      .catch(() => {});
-  });
+      modal.setAttribute(
+        'aria-hidden',
+        'false'
+      );
+
+      document.body.classList.add(
+        'no-scroll'
+      );
+
+      modalVideo
+        .play()
+        .catch(() => {});
+    }
+  );
 });
 
 function closeVideo() {
-  if (!modal || !modalVideo) return;
+  if (!modal || !modalVideo) {
+    return;
+  }
 
-  modal.classList.remove('open');
-  modal.setAttribute('aria-hidden', 'true');
+  modal.classList.remove(
+    'open'
+  );
 
-  document.body.classList.remove('no-scroll');
+  modal.setAttribute(
+    'aria-hidden',
+    'true'
+  );
+
+  document.body.classList.remove(
+    'no-scroll'
+  );
 
   modalVideo.pause();
-  modalVideo.removeAttribute('src');
+
+  modalVideo.removeAttribute(
+    'src'
+  );
+
   modalVideo.load();
 }
 
-$('#videoClose')?.addEventListener('click', closeVideo);
+$('#videoClose')?.addEventListener(
+  'click',
+  closeVideo
+);
 
-modal?.addEventListener('click', (e) => {
-  if (e.target === modal) closeVideo();
-});
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    closeMenu();
-    closeVideo();
+modal?.addEventListener(
+  'click',
+  (e) => {
+    if (e.target === modal) {
+      closeVideo();
+    }
   }
-});
+);
+
+document.addEventListener(
+  'keydown',
+  (e) => {
+    if (e.key === 'Escape') {
+      closeMenu();
+      closeVideo();
+    }
+  }
+);
 
 // =========================================================
 // KNEE PAIN CHECKER
@@ -183,18 +413,31 @@ document.addEventListener('keydown', (e) => {
 const checker = $('#kneeChecker');
 
 if (checker) {
-  const boxes = $$('input[type=checkbox]', checker);
-  const count = $('#checkerCount');
-  const msg = $('#checkerMessage');
+  const boxes =
+    $$(
+      'input[type=checkbox]',
+      checker
+    );
+
+  const count =
+    $('#checkerCount');
+
+  const msg =
+    $('#checkerMessage');
 
   const update = () => {
-    const n = boxes.filter((b) => b.checked).length;
+    const n =
+      boxes.filter(
+        (b) => b.checked
+      ).length;
 
     if (count) {
       count.textContent = n;
     }
 
-    if (!msg) return;
+    if (!msg) {
+      return;
+    }
 
     if (n === 0) {
       msg.textContent =
@@ -209,7 +452,10 @@ if (checker) {
   };
 
   boxes.forEach((b) => {
-    b.addEventListener('change', update);
+    b.addEventListener(
+      'change',
+      update
+    );
   });
 
   update();
@@ -221,32 +467,37 @@ if (checker) {
 const form = $('#appointmentForm');
 
 if (form) {
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+  form.addEventListener(
+    'submit',
+    (e) => {
+      e.preventDefault();
 
-    const d = new FormData(form);
+      const d =
+        new FormData(form);
 
-    const text =
-      `Hello JAP Hospital, I would like to request an appointment.%0A%0A` +
-      `Name: ${encodeURIComponent(d.get('name') || '')}%0A` +
-      `Phone: ${encodeURIComponent(d.get('phone') || '')}%0A` +
-      `Concern: ${encodeURIComponent(d.get('concern') || '')}%0A` +
-      `Preferred date: ${encodeURIComponent(d.get('date') || '')}%0A` +
-      `Message: ${encodeURIComponent(d.get('message') || '')}`;
+      const text =
+        `Hello JAP Hospital, I would like to request an appointment.%0A%0A` +
+        `Name: ${encodeURIComponent(d.get('name') || '')}%0A` +
+        `Phone: ${encodeURIComponent(d.get('phone') || '')}%0A` +
+        `Concern: ${encodeURIComponent(d.get('concern') || '')}%0A` +
+        `Preferred date: ${encodeURIComponent(d.get('date') || '')}%0A` +
+        `Message: ${encodeURIComponent(d.get('message') || '')}`;
 
-    window.open(
-      `https://wa.me/${SITE_CONTACT.whatsappPhone}?text=${text}`,
-      '_blank',
-      'noopener'
-    );
-  });
+      window.open(
+        `https://wa.me/${SITE_CONTACT.whatsappPhone}?text=${text}`,
+        '_blank',
+        'noopener'
+      );
+    }
+  );
 }
 
 // =========================================================
 // ELDER-FRIENDLY MOBILE ACTION BAR
 // Always keep this exactly: Call | WhatsApp | Book.
 // =========================================================
-const mobileActions = $('.mobile-actions');
+const mobileActions =
+  $('.mobile-actions');
 
 if (mobileActions) {
   mobileActions.innerHTML = `
@@ -280,34 +531,49 @@ if (mobileActions) {
 
 // =========================================================
 // CONTEXTUAL ORTHOPAEDIC TEAM CTA
-// Homepage: only sections deliberately marked data-team-cta="true"
-// to keep the page human and less repetitive.
-// Internal pages retain the previous behavior.
 // =========================================================
 const isHomePage =
-  document.body.classList.contains('home-page');
+  document.body.classList.contains(
+    'home-page'
+  );
 
 const teamSections =
   isHomePage
-    ? $$('main > section.section[data-team-cta="true"]')
-    : $$('main > section.section');
+    ? $$(
+        'main > section.section[data-team-cta="true"]'
+      )
+    : $$(
+        'main > section.section'
+      );
 
 teamSections.forEach((section) => {
   if (
-    section.classList.contains('no-team-cta') ||
-    section.querySelector('.cta') ||
-    section.querySelector('.section-team-cta')
+    section.classList.contains(
+      'no-team-cta'
+    ) ||
+    section.querySelector(
+      '.cta'
+    ) ||
+    section.querySelector(
+      '.section-team-cta'
+    )
   ) {
     return;
   }
 
   const wrap =
-    section.querySelector('.container');
+    section.querySelector(
+      '.container'
+    );
 
-  if (!wrap) return;
+  if (!wrap) {
+    return;
+  }
 
   const cta =
-    document.createElement('div');
+    document.createElement(
+      'div'
+    );
 
   cta.className =
     'section-team-cta';
@@ -322,19 +588,22 @@ teamSections.forEach((section) => {
     </a>
   `;
 
-  wrap.appendChild(cta);
+  wrap.appendChild(
+    cta
+  );
 });
 
 // =========================================================
-// V3.8 — V2-ALIGNED FIVE-SLIDE HOSPITAL SHOWCASE
-// Auto changes every 5 seconds.
-// Supports arrows, dots, keyboard and mobile swipe.
+// V3.9 — FIVE-SLIDE HOSPITAL SHOWCASE
+// Reliable 5-second autoplay.
 // =========================================================
 (() => {
   const slider =
     $('#japHomeSlider');
 
-  if (!slider) return;
+  if (!slider) {
+    return;
+  }
 
   const slides =
     $$('.home-slide', slider);
@@ -351,56 +620,91 @@ teamSections.forEach((section) => {
   const progress =
     $('#homeSliderProgress');
 
-  let index = 0;
+  if (!slides.length) {
+    return;
+  }
+
+  let index = Math.max(
+    0,
+    slides.findIndex(
+      (slide) =>
+        slide.classList.contains(
+          'active'
+        )
+    )
+  );
+
   let timer = null;
   let touchStartX = 0;
 
   const interval = 5000;
 
+  // -----------------------------------------
+  // PROGRESS BAR
+  // -----------------------------------------
   const animateProgress = () => {
-    if (!progress) return;
+    if (!progress) {
+      return;
+    }
 
     progress.style.animation =
       'none';
+
+    progress.style.width =
+      '0';
 
     void progress.offsetWidth;
 
     progress.style.animation =
       `homeSliderProgress ${interval}ms linear forwards`;
+
+    progress.style.animationPlayState =
+      'running';
   };
 
-  const stopAuto = () => {
+  // -----------------------------------------
+  // CLEAR TIMER
+  // -----------------------------------------
+  const clearTimer = () => {
     if (timer) {
-      clearInterval(timer);
+      window.clearTimeout(
+        timer
+      );
+
       timer = null;
     }
-
-    if (progress) {
-      progress.style.animationPlayState =
-        'paused';
-    }
   };
 
-  const startAuto = () => {
-    stopAuto();
+  // -----------------------------------------
+  // SCHEDULE NEXT SLIDE
+  // -----------------------------------------
+  const scheduleNext = () => {
+    clearTimer();
+
+    if (document.hidden) {
+      return;
+    }
+
     animateProgress();
 
-    timer = setInterval(
-      () => {
-        showSlide(
-          index + 1,
-          false
-        );
-
-        animateProgress();
-      },
-      interval
-    );
+    timer =
+      window.setTimeout(
+        () => {
+          showSlide(
+            index + 1,
+            true
+          );
+        },
+        interval
+      );
   };
 
+  // -----------------------------------------
+  // SHOW SLIDE
+  // -----------------------------------------
   const showSlide = (
     newIndex,
-    restart = true
+    reschedule = true
   ) => {
     index =
       (
@@ -409,95 +713,101 @@ teamSections.forEach((section) => {
       ) %
       slides.length;
 
-    slides.forEach((slide, i) => {
-      const active =
-        i === index;
+    slides.forEach(
+      (slide, i) => {
+        const active =
+          i === index;
 
-      slide.classList.toggle(
-        'active',
-        active
-      );
+        slide.classList.toggle(
+          'active',
+          active
+        );
 
-      slide.setAttribute(
-        'aria-hidden',
-        active
-          ? 'false'
-          : 'true'
-      );
-    });
+        slide.setAttribute(
+          'aria-hidden',
+          active
+            ? 'false'
+            : 'true'
+        );
+      }
+    );
 
-    dots.forEach((dot, i) => {
-      const active =
-        i === index;
+    dots.forEach(
+      (dot, i) => {
+        const active =
+          i === index;
 
-      dot.classList.toggle(
-        'active',
-        active
-      );
+        dot.classList.toggle(
+          'active',
+          active
+        );
 
-      dot.setAttribute(
-        'aria-current',
-        active
-          ? 'true'
-          : 'false'
-      );
-    });
+        dot.setAttribute(
+          'aria-current',
+          active
+            ? 'true'
+            : 'false'
+        );
+      }
+    );
 
-    if (restart) {
-      startAuto();
+    if (reschedule) {
+      scheduleNext();
     }
   };
 
+  // -----------------------------------------
+  // PREVIOUS / NEXT
+  // -----------------------------------------
   prev?.addEventListener(
     'click',
     () => {
-      showSlide(index - 1);
+      showSlide(
+        index - 1
+      );
     }
   );
 
   next?.addEventListener(
     'click',
     () => {
-      showSlide(index + 1);
+      showSlide(
+        index + 1
+      );
     }
   );
 
-  dots.forEach((dot, i) => {
-    dot.addEventListener(
-      'click',
-      () => {
-        showSlide(i);
-      }
-    );
-  });
-
-  slider.addEventListener(
-    'mouseenter',
-    stopAuto
+  // -----------------------------------------
+  // DOT NAVIGATION
+  // -----------------------------------------
+  dots.forEach(
+    (dot, i) => {
+      dot.addEventListener(
+        'click',
+        () => {
+          showSlide(i);
+        }
+      );
+    }
   );
 
-  slider.addEventListener(
-    'mouseleave',
-    startAuto
-  );
-
-  slider.addEventListener(
-    'focusin',
-    stopAuto
-  );
-
-  slider.addEventListener(
-    'focusout',
-    startAuto
-  );
-
+  // -----------------------------------------
+  // MOBILE SWIPE
+  // -----------------------------------------
   slider.addEventListener(
     'touchstart',
     (e) => {
       touchStartX =
-        e.changedTouches[0].clientX;
+        e.changedTouches[0]
+          .clientX;
 
-      stopAuto();
+      clearTimer();
+
+      if (progress) {
+        progress.style
+          .animationPlayState =
+          'paused';
+      }
     },
     {
       passive: true
@@ -508,7 +818,8 @@ teamSections.forEach((section) => {
     'touchend',
     (e) => {
       const delta =
-        e.changedTouches[0].clientX -
+        e.changedTouches[0]
+          .clientX -
         touchStartX;
 
       if (
@@ -523,7 +834,7 @@ teamSections.forEach((section) => {
           )
         );
       } else {
-        startAuto();
+        scheduleNext();
       }
     },
     {
@@ -533,18 +844,23 @@ teamSections.forEach((section) => {
 
   slider.addEventListener(
     'touchcancel',
-    startAuto,
+    scheduleNext,
     {
       passive: true
     }
   );
 
+  // -----------------------------------------
+  // KEYBOARD NAVIGATION
+  // -----------------------------------------
   slider.addEventListener(
     'keydown',
     (e) => {
       if (
         e.key === 'ArrowLeft'
       ) {
+        e.preventDefault();
+
         showSlide(
           index - 1
         );
@@ -553,6 +869,8 @@ teamSections.forEach((section) => {
       if (
         e.key === 'ArrowRight'
       ) {
+        e.preventDefault();
+
         showSlide(
           index + 1
         );
@@ -560,16 +878,29 @@ teamSections.forEach((section) => {
     }
   );
 
+  // -----------------------------------------
+  // TAB VISIBILITY
+  // -----------------------------------------
   document.addEventListener(
     'visibilitychange',
     () => {
       if (document.hidden) {
-        stopAuto();
+        clearTimer();
+
+        if (progress) {
+          progress.style
+            .animationPlayState =
+            'paused';
+        }
       } else {
-        startAuto();
+        scheduleNext();
       }
     }
   );
 
-  startAuto();
+  // Start the 5-second slideshow
+  showSlide(
+    index,
+    true
+  );
 })();
