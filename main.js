@@ -13,7 +13,7 @@ const SITE_TRUST = {
 };
 
 const SITE_CONTACT = {
-  receptionPhone: '+917589100737',
+  receptionPhone: '+919909916112',
   whatsappPhone: '919909916112'
 };
 
@@ -82,6 +82,7 @@ $$(`a[href*="wa.me/${SITE_CONTACT.whatsappPhone}"]`).forEach((link) => {
 
 // =========================================================
 // SIMPLIFIED SITE-WIDE NAVIGATION
+// Keeps the same compact menu on every V3 page that loads main.js.
 // =========================================================
 (() => {
   const desktopNav = $('.nav-links');
@@ -191,33 +192,13 @@ $$(`a[href*="wa.me/${SITE_CONTACT.whatsappPhone}"]`).forEach((link) => {
 
   if (mobileNav) {
     mobileNav.innerHTML = `
-      <a href="index.html">
-        Home
-      </a>
-
-      <a href="orthopaedics.html">
-        Treatments
-      </a>
-
-      <a href="robotic-knee-replacement.html">
-        Robotic Knee Replacement
-      </a>
-
-      <a href="doctor-aman-singh.html">
-        Dr. Aman Singh
-      </a>
-
-      <a href="about.html">
-        About JAP Hospital
-      </a>
-
-      <a href="index.html#patient-stories">
-        Patient Stories
-      </a>
-
-      <a href="contact.html">
-        Contact / Appointment
-      </a>
+      <a href="index.html">Home</a>
+      <a href="orthopaedics.html">Treatments</a>
+      <a href="robotic-knee-replacement.html">Robotic Knee Replacement</a>
+      <a href="doctor-aman-singh.html">Dr. Aman Singh</a>
+      <a href="about.html">About JAP Hospital</a>
+      <a href="index.html#patient-stories">Patient Stories</a>
+      <a href="contact.html">Contact / Appointment</a>
     `;
   }
 })();
@@ -286,10 +267,13 @@ $$('.mobile-links a').forEach((a) => {
 const revealItems = $$('[data-reveal]');
 
 if ('IntersectionObserver' in window) {
+
   const io = new IntersectionObserver(
     (entries) =>
       entries.forEach((entry) => {
+
         if (entry.isIntersecting) {
+
           entry.target.classList.add(
             'visible'
           );
@@ -297,7 +281,9 @@ if ('IntersectionObserver' in window) {
           io.unobserve(
             entry.target
           );
+
         }
+
       }),
     {
       threshold: 0.12
@@ -307,10 +293,13 @@ if ('IntersectionObserver' in window) {
   revealItems.forEach((el) => {
     io.observe(el);
   });
+
 } else {
+
   revealItems.forEach((el) => {
     el.classList.add('visible');
   });
+
 }
 
 // =========================================================
@@ -321,9 +310,11 @@ const modalVideo = $('#patientVideo');
 const modalTitle = $('#videoTitle');
 
 $$('[data-video]').forEach((btn) => {
+
   btn.addEventListener(
     'click',
     () => {
+
       if (!modal || !modalVideo) {
         return;
       }
@@ -352,11 +343,14 @@ $$('[data-video]').forEach((btn) => {
       modalVideo
         .play()
         .catch(() => {});
+
     }
   );
+
 });
 
 function closeVideo() {
+
   if (!modal || !modalVideo) {
     return;
   }
@@ -391,19 +385,23 @@ $('#videoClose')?.addEventListener(
 modal?.addEventListener(
   'click',
   (e) => {
+
     if (e.target === modal) {
       closeVideo();
     }
+
   }
 );
 
 document.addEventListener(
   'keydown',
   (e) => {
+
     if (e.key === 'Escape') {
       closeMenu();
       closeVideo();
     }
+
   }
 );
 
@@ -413,6 +411,7 @@ document.addEventListener(
 const checker = $('#kneeChecker');
 
 if (checker) {
+
   const boxes =
     $$(
       'input[type=checkbox]',
@@ -426,6 +425,7 @@ if (checker) {
     $('#checkerMessage');
 
   const update = () => {
+
     const n =
       boxes.filter(
         (b) => b.checked
@@ -440,15 +440,22 @@ if (checker) {
     }
 
     if (n === 0) {
+
       msg.textContent =
         'Select any symptoms that apply to you.';
+
     } else if (n < 3) {
+
       msg.textContent =
         'A few symptoms can still be worth discussing if they persist or interfere with daily life.';
+
     } else {
+
       msg.textContent =
         'Several symptoms apply. An orthopaedic evaluation may help identify the cause and appropriate next steps.';
+
     }
+
   };
 
   boxes.forEach((b) => {
@@ -467,9 +474,11 @@ if (checker) {
 const form = $('#appointmentForm');
 
 if (form) {
+
   form.addEventListener(
     'submit',
     (e) => {
+
       e.preventDefault();
 
       const d =
@@ -488,8 +497,10 @@ if (form) {
         '_blank',
         'noopener'
       );
+
     }
   );
+
 }
 
 // =========================================================
@@ -500,6 +511,7 @@ const mobileActions =
   $('.mobile-actions');
 
 if (mobileActions) {
+
   mobileActions.innerHTML = `
     <a
       href="tel:${SITE_CONTACT.receptionPhone}"
@@ -527,6 +539,7 @@ if (mobileActions) {
       Book
     </a>
   `;
+
 }
 
 // =========================================================
@@ -547,6 +560,7 @@ const teamSections =
       );
 
 teamSections.forEach((section) => {
+
   if (
     section.classList.contains(
       'no-team-cta'
@@ -591,13 +605,16 @@ teamSections.forEach((section) => {
   wrap.appendChild(
     cta
   );
+
 });
 
 // =========================================================
-// V3.9 — FIVE-SLIDE HOSPITAL SHOWCASE
-// Reliable 5-second autoplay.
+// V3.10 — FIVE-SLIDE HOSPITAL SHOWCASE
+// 5-second autoplay + V2-style visible transition.
+// Cross-fades the slides, moves the image gently and staggers copy.
 // =========================================================
 (() => {
+
   const slider =
     $('#japHomeSlider');
 
@@ -624,6 +641,9 @@ teamSections.forEach((section) => {
     return;
   }
 
+  const interval = 5000;
+  const transitionDuration = 900;
+
   let index = Math.max(
     0,
     slides.findIndex(
@@ -635,14 +655,20 @@ teamSections.forEach((section) => {
   );
 
   let timer = null;
+  let leavingTimer = null;
   let touchStartX = 0;
+  let transitionToken = 0;
 
-  const interval = 5000;
+  const reducedMotion =
+    window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
 
   // -----------------------------------------
-  // PROGRESS BAR
+  // RESTART PROGRESS BAR
   // -----------------------------------------
-  const animateProgress = () => {
+  const resetProgress = () => {
+
     if (!progress) {
       return;
     }
@@ -660,80 +686,78 @@ teamSections.forEach((section) => {
 
     progress.style.animationPlayState =
       'running';
+
   };
 
   // -----------------------------------------
-  // CLEAR TIMER
+  // CLEAR AUTOMATIC TIMER
   // -----------------------------------------
-  const clearTimer = () => {
-    if (timer) {
+  const clearAutoTimer = () => {
+
+    if (timer !== null) {
+
       window.clearTimeout(
         timer
       );
 
       timer = null;
+
     }
+
   };
 
   // -----------------------------------------
-  // SCHEDULE NEXT SLIDE
+  // CLEAR TRANSITION CLEANUP TIMER
+  // -----------------------------------------
+  const clearLeavingTimer = () => {
+
+    if (leavingTimer !== null) {
+
+      window.clearTimeout(
+        leavingTimer
+      );
+
+      leavingTimer = null;
+
+    }
+
+  };
+
+  // -----------------------------------------
+  // SCHEDULE NEXT SLIDE AFTER 5 SECONDS
   // -----------------------------------------
   const scheduleNext = () => {
-    clearTimer();
+
+    clearAutoTimer();
 
     if (document.hidden) {
       return;
     }
 
-    animateProgress();
+    resetProgress();
 
     timer =
       window.setTimeout(
         () => {
+
           showSlide(
-            index + 1,
-            true
+            index + 1
           );
+
         },
         interval
       );
+
   };
 
   // -----------------------------------------
-  // SHOW SLIDE
+  // UPDATE DOT INDICATORS
   // -----------------------------------------
-  const showSlide = (
-    newIndex,
-    reschedule = true
-  ) => {
-    index =
-      (
-        newIndex +
-        slides.length
-      ) %
-      slides.length;
-
-    slides.forEach(
-      (slide, i) => {
-        const active =
-          i === index;
-
-        slide.classList.toggle(
-          'active',
-          active
-        );
-
-        slide.setAttribute(
-          'aria-hidden',
-          active
-            ? 'false'
-            : 'true'
-        );
-      }
-    );
+  const updateDots = () => {
 
     dots.forEach(
       (dot, i) => {
+
         const active =
           i === index;
 
@@ -748,32 +772,233 @@ teamSections.forEach((section) => {
             ? 'true'
             : 'false'
         );
+
       }
     );
 
-    if (reschedule) {
-      scheduleNext();
-    }
   };
 
   // -----------------------------------------
-  // PREVIOUS / NEXT
+  // SHOW SLIDE WITH V2-STYLE TRANSITION
+  // -----------------------------------------
+  const showSlide = (
+    newIndex,
+    restart = true
+  ) => {
+
+    const nextIndex =
+      (
+        newIndex +
+        slides.length
+      ) %
+      slides.length;
+
+    // If user clicks the currently active dot,
+    // simply restart its five-second timer.
+    if (
+      nextIndex === index &&
+      slides[index].classList.contains(
+        'active'
+      )
+    ) {
+
+      if (restart) {
+        scheduleNext();
+      }
+
+      return;
+    }
+
+    clearAutoTimer();
+    clearLeavingTimer();
+
+    const oldIndex =
+      index;
+
+    const oldSlide =
+      slides[oldIndex];
+
+    const newSlide =
+      slides[nextIndex];
+
+    transitionToken += 1;
+
+    const token =
+      transitionToken;
+
+    index =
+      nextIndex;
+
+    updateDots();
+
+    // Clean any slide that is not participating
+    // in the current transition.
+    slides.forEach(
+      (slide, i) => {
+
+        if (
+          i !== oldIndex &&
+          i !== nextIndex
+        ) {
+
+          slide.classList.remove(
+            'active',
+            'is-leaving'
+          );
+
+          slide.setAttribute(
+            'aria-hidden',
+            'true'
+          );
+
+        }
+
+      }
+    );
+
+    // Respect reduced-motion accessibility settings.
+    if (reducedMotion) {
+
+      oldSlide?.classList.remove(
+        'active',
+        'is-leaving'
+      );
+
+      newSlide.classList.remove(
+        'is-leaving'
+      );
+
+      newSlide.classList.add(
+        'active'
+      );
+
+      slides.forEach(
+        (slide, i) => {
+
+          slide.setAttribute(
+            'aria-hidden',
+            i === index
+              ? 'false'
+              : 'true'
+          );
+
+        }
+      );
+
+      if (restart) {
+        scheduleNext();
+      }
+
+      return;
+    }
+
+    // Keep the old slide visible for the fade-out.
+    if (
+      oldSlide &&
+      oldSlide !== newSlide
+    ) {
+
+      oldSlide.classList.remove(
+        'active'
+      );
+
+      oldSlide.classList.add(
+        'is-leaving'
+      );
+
+      oldSlide.setAttribute(
+        'aria-hidden',
+        'true'
+      );
+
+    }
+
+    // Start the incoming slide from the hidden position.
+    newSlide.classList.remove(
+      'active',
+      'is-leaving'
+    );
+
+    newSlide.setAttribute(
+      'aria-hidden',
+      'false'
+    );
+
+    // Two frames guarantee that the browser paints
+    // the starting state before adding .active.
+    // This prevents the slideshow from looking like
+    // an instant image cut.
+    window.requestAnimationFrame(
+      () => {
+
+        window.requestAnimationFrame(
+          () => {
+
+            if (
+              token !== transitionToken
+            ) {
+              return;
+            }
+
+            newSlide.classList.add(
+              'active'
+            );
+
+            leavingTimer =
+              window.setTimeout(
+                () => {
+
+                  if (
+                    token !== transitionToken
+                  ) {
+                    return;
+                  }
+
+                  oldSlide?.classList.remove(
+                    'is-leaving'
+                  );
+
+                  leavingTimer =
+                    null;
+
+                },
+                transitionDuration + 80
+              );
+
+            if (restart) {
+              scheduleNext();
+            }
+
+          }
+        );
+
+      }
+    );
+
+  };
+
+  // -----------------------------------------
+  // PREVIOUS / NEXT BUTTONS
   // -----------------------------------------
   prev?.addEventListener(
     'click',
     () => {
+
       showSlide(
         index - 1
       );
+
     }
   );
 
   next?.addEventListener(
     'click',
     () => {
+
       showSlide(
         index + 1
       );
+
     }
   );
 
@@ -782,41 +1007,53 @@ teamSections.forEach((section) => {
   // -----------------------------------------
   dots.forEach(
     (dot, i) => {
+
       dot.addEventListener(
         'click',
         () => {
+
           showSlide(i);
+
         }
       );
+
     }
   );
 
   // -----------------------------------------
-  // MOBILE SWIPE
+  // MOBILE SWIPE START
   // -----------------------------------------
   slider.addEventListener(
     'touchstart',
     (e) => {
+
       touchStartX =
         e.changedTouches[0]
           .clientX;
 
-      clearTimer();
+      clearAutoTimer();
 
       if (progress) {
+
         progress.style
           .animationPlayState =
           'paused';
+
       }
+
     },
     {
       passive: true
     }
   );
 
+  // -----------------------------------------
+  // MOBILE SWIPE END
+  // -----------------------------------------
   slider.addEventListener(
     'touchend',
     (e) => {
+
       const delta =
         e.changedTouches[0]
           .clientX -
@@ -825,6 +1062,7 @@ teamSections.forEach((section) => {
       if (
         Math.abs(delta) > 45
       ) {
+
         showSlide(
           index +
           (
@@ -833,9 +1071,13 @@ teamSections.forEach((section) => {
               : -1
           )
         );
+
       } else {
+
         scheduleNext();
+
       }
+
     },
     {
       passive: true
@@ -856,25 +1098,31 @@ teamSections.forEach((section) => {
   slider.addEventListener(
     'keydown',
     (e) => {
+
       if (
         e.key === 'ArrowLeft'
       ) {
+
         e.preventDefault();
 
         showSlide(
           index - 1
         );
+
       }
 
       if (
         e.key === 'ArrowRight'
       ) {
+
         e.preventDefault();
 
         showSlide(
           index + 1
         );
+
       }
+
     }
   );
 
@@ -884,23 +1132,57 @@ teamSections.forEach((section) => {
   document.addEventListener(
     'visibilitychange',
     () => {
+
       if (document.hidden) {
-        clearTimer();
+
+        clearAutoTimer();
 
         if (progress) {
+
           progress.style
             .animationPlayState =
             'paused';
+
         }
+
       } else {
+
         scheduleNext();
+
       }
+
     }
   );
 
-  // Start the 5-second slideshow
-  showSlide(
-    index,
-    true
+  // -----------------------------------------
+  // INITIAL STATE
+  // -----------------------------------------
+  slides.forEach(
+    (slide, i) => {
+
+      const active =
+        i === index;
+
+      slide.classList.toggle(
+        'active',
+        active
+      );
+
+      slide.classList.remove(
+        'is-leaving'
+      );
+
+      slide.setAttribute(
+        'aria-hidden',
+        active
+          ? 'false'
+          : 'true'
+      );
+
+    }
   );
+
+  updateDots();
+  scheduleNext();
+
 })();
