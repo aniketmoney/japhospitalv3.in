@@ -23,6 +23,7 @@ $$('.brand-strip-rating').forEach((rating) => {
   rating.href = SITE_TRUST.reviewUrl;
   rating.target = '_blank';
   rating.rel = 'noopener';
+
   rating.setAttribute(
     'aria-label',
     `See JAP Hospital Google reviews — rated ${SITE_TRUST.rating} from ${SITE_TRUST.reviews}`
@@ -30,9 +31,15 @@ $$('.brand-strip-rating').forEach((rating) => {
 
   rating.innerHTML = `
     <span class="rating-stars" aria-hidden="true">★★★★★</span>
-    <span class="rating-score"><strong>${SITE_TRUST.rating}</strong></span>
-    <span class="rating-count">${SITE_TRUST.reviews}</span>
-    <span class="rating-link">See what our patients say →</span>
+    <span class="rating-score">
+      <strong>${SITE_TRUST.rating}</strong>
+    </span>
+    <span class="rating-count">
+      ${SITE_TRUST.reviews}
+    </span>
+    <span class="rating-link">
+      See what our patients say →
+    </span>
   `;
 });
 
@@ -48,12 +55,22 @@ $$('.google-proof-card').forEach((card) => {
   );
 
   card.innerHTML = `
-    <div class="google-proof-stars" aria-hidden="true">★★★★★</div>
-    <div class="google-proof-score">${SITE_TRUST.rating}</div>
+    <div class="google-proof-stars" aria-hidden="true">
+      ★★★★★
+    </div>
+
+    <div class="google-proof-score">
+      ${SITE_TRUST.rating}
+    </div>
 
     <div class="google-proof-copy">
-      <strong>${SITE_TRUST.reviews}</strong>
-      <span>See what our patients say →</span>
+      <strong>
+        ${SITE_TRUST.reviews}
+      </strong>
+
+      <span>
+        See what our patients say →
+      </span>
     </div>
   `;
 });
@@ -82,6 +99,7 @@ $$(`a[href*="wa.me/${SITE_CONTACT.whatsappPhone}"]`).forEach((link) => {
 // =========================================================
 // HEADER SCROLL EFFECT
 // =========================================================
+
 const header = $('.header');
 
 window.addEventListener(
@@ -91,12 +109,15 @@ window.addEventListener(
       'scrolled',
       window.scrollY > 8
     ),
-  { passive: true }
+  {
+    passive: true
+  }
 );
 
 // =========================================================
 // MOBILE MENU
 // =========================================================
+
 const menu = $('#mobileMenu');
 
 function openMenu() {
@@ -119,22 +140,26 @@ $('#mobileClose')?.addEventListener(
   closeMenu
 );
 
-menu?.addEventListener('click', (e) => {
-  if (e.target === menu) {
-    closeMenu();
+menu?.addEventListener(
+  'click',
+  (e) => {
+    if (e.target === menu) {
+      closeMenu();
+    }
   }
-});
+);
 
-$$('.mobile-links a').forEach((a) =>
+$$('.mobile-links a').forEach((a) => {
   a.addEventListener(
     'click',
     closeMenu
-  )
-);
+  );
+});
 
 // =========================================================
 // SCROLL REVEAL
 // =========================================================
+
 const revealItems = $$('[data-reveal]');
 
 if ('IntersectionObserver' in window) {
@@ -152,6 +177,7 @@ if ('IntersectionObserver' in window) {
           io.unobserve(
             entry.target
           );
+
         }
 
       }),
@@ -160,59 +186,63 @@ if ('IntersectionObserver' in window) {
     }
   );
 
-  revealItems.forEach((el) =>
-    io.observe(el)
-  );
+  revealItems.forEach((el) => {
+    io.observe(el);
+  });
 
 } else {
 
-  revealItems.forEach((el) =>
-    el.classList.add('visible')
-  );
+  revealItems.forEach((el) => {
+    el.classList.add('visible');
+  });
 
 }
 
 // =========================================================
 // PATIENT VIDEO MODAL
 // =========================================================
+
 const modal = $('#videoModal');
 const modalVideo = $('#patientVideo');
 const modalTitle = $('#videoTitle');
 
 $$('[data-video]').forEach((btn) => {
 
-  btn.addEventListener('click', () => {
+  btn.addEventListener(
+    'click',
+    () => {
 
-    if (!modal || !modalVideo) {
-      return;
+      if (!modal || !modalVideo) {
+        return;
+      }
+
+      modalTitle.textContent =
+        btn.dataset.title ||
+        'Patient Story';
+
+      modalVideo.src =
+        btn.dataset.video ||
+        '';
+
+      modal.classList.add(
+        'open'
+      );
+
+      modal.setAttribute(
+        'aria-hidden',
+        'false'
+      );
+
+      document.body.classList.add(
+        'no-scroll'
+      );
+
+      modalVideo
+        .play()
+        .catch(() => {});
+
     }
-
-    modalTitle.textContent =
-      btn.dataset.title ||
-      'Patient Story';
-
-    modalVideo.src =
-      btn.dataset.video ||
-      '';
-
-    modal.classList.add(
-      'open'
-    );
-
-    modal.setAttribute(
-      'aria-hidden',
-      'false'
-    );
-
-    document.body.classList.add(
-      'no-scroll'
-    );
-
-    modalVideo
-      .play()
-      .catch(() => {});
-
-  });
+  );
 
 });
 
@@ -265,8 +295,10 @@ document.addEventListener(
   (e) => {
 
     if (e.key === 'Escape') {
+
       closeMenu();
       closeVideo();
+
     }
 
   }
@@ -275,6 +307,7 @@ document.addEventListener(
 // =========================================================
 // KNEE PAIN CHECKER
 // =========================================================
+
 const checker = $('#kneeChecker');
 
 if (checker) {
@@ -325,12 +358,14 @@ if (checker) {
 
   };
 
-  boxes.forEach((b) =>
+  boxes.forEach((b) => {
+
     b.addEventListener(
       'change',
       update
-    )
-  );
+    );
+
+  });
 
   update();
 }
@@ -338,6 +373,7 @@ if (checker) {
 // =========================================================
 // APPOINTMENT FORM -> WHATSAPP APPOINTMENT DESK
 // =========================================================
+
 const form = $('#appointmentForm');
 
 if (form) {
@@ -374,6 +410,7 @@ if (form) {
 // ELDER-FRIENDLY MOBILE ACTION BAR
 // Always keep this exactly: Call | WhatsApp | Book.
 // =========================================================
+
 const mobileActions =
   $('.mobile-actions');
 
@@ -406,14 +443,15 @@ if (mobileActions) {
       Book
     </a>
   `;
+
 }
 
 // =========================================================
 // CONTEXTUAL ORTHOPAEDIC TEAM CTA
 // Homepage: only sections deliberately marked data-team-cta="true"
-// to keep the page human and less repetitive.
-// Internal pages retain the previous behavior.
+// Internal pages retain the previous behaviour.
 // =========================================================
+
 const isHomePage =
   document.body.classList.contains(
     'home-page'
@@ -478,10 +516,11 @@ teamSections.forEach((section) => {
 });
 
 // =========================================================
-// V3.6 FIVE-SLIDE HOSPITAL SHOWCASE
+// V3.7 — V2-ALIGNED FIVE-SLIDE HOSPITAL SHOWCASE
 // Auto changes every 5 seconds.
 // Supports arrows, dots, keyboard and mobile swipe.
 // =========================================================
+
 (() => {
 
   const slider =
@@ -512,6 +551,10 @@ teamSections.forEach((section) => {
 
   const interval = 5000;
 
+  // -----------------------------------------
+  // SLIDER PROGRESS BAR
+  // -----------------------------------------
+
   const animateProgress = () => {
 
     if (!progress) {
@@ -527,6 +570,10 @@ teamSections.forEach((section) => {
       `homeSliderProgress ${interval}ms linear forwards`;
 
   };
+
+  // -----------------------------------------
+  // STOP AUTOMATIC SLIDES
+  // -----------------------------------------
 
   const stopAuto = () => {
 
@@ -545,6 +592,10 @@ teamSections.forEach((section) => {
     }
 
   };
+
+  // -----------------------------------------
+  // START AUTOMATIC SLIDES
+  // -----------------------------------------
 
   const startAuto = () => {
 
@@ -567,6 +618,10 @@ teamSections.forEach((section) => {
     );
 
   };
+
+  // -----------------------------------------
+  // SHOW SELECTED SLIDE
+  // -----------------------------------------
 
   const showSlide = (
     newIndex,
@@ -628,19 +683,35 @@ teamSections.forEach((section) => {
 
   };
 
+  // -----------------------------------------
+  // PREVIOUS / NEXT BUTTONS
+  // -----------------------------------------
+
   prev?.addEventListener(
     'click',
     () => {
-      showSlide(index - 1);
+
+      showSlide(
+        index - 1
+      );
+
     }
   );
 
   next?.addEventListener(
     'click',
     () => {
-      showSlide(index + 1);
+
+      showSlide(
+        index + 1
+      );
+
     }
   );
+
+  // -----------------------------------------
+  // SLIDER DOTS
+  // -----------------------------------------
 
   dots.forEach(
     (dot, i) => {
@@ -648,12 +719,18 @@ teamSections.forEach((section) => {
       dot.addEventListener(
         'click',
         () => {
+
           showSlide(i);
+
         }
       );
 
     }
   );
+
+  // -----------------------------------------
+  // DESKTOP HOVER
+  // -----------------------------------------
 
   slider.addEventListener(
     'mouseenter',
@@ -665,6 +742,10 @@ teamSections.forEach((section) => {
     startAuto
   );
 
+  // -----------------------------------------
+  // KEYBOARD FOCUS
+  // -----------------------------------------
+
   slider.addEventListener(
     'focusin',
     stopAuto
@@ -674,6 +755,10 @@ teamSections.forEach((section) => {
     'focusout',
     startAuto
   );
+
+  // -----------------------------------------
+  // MOBILE SWIPE START
+  // -----------------------------------------
 
   slider.addEventListener(
     'touchstart',
@@ -689,6 +774,10 @@ teamSections.forEach((section) => {
       passive: true
     }
   );
+
+  // -----------------------------------------
+  // MOBILE SWIPE END
+  // -----------------------------------------
 
   slider.addEventListener(
     'touchend',
@@ -731,6 +820,10 @@ teamSections.forEach((section) => {
     }
   );
 
+  // -----------------------------------------
+  // KEYBOARD ARROW NAVIGATION
+  // -----------------------------------------
+
   slider.addEventListener(
     'keydown',
     (e) => {
@@ -758,6 +851,10 @@ teamSections.forEach((section) => {
     }
   );
 
+  // -----------------------------------------
+  // PAUSE WHEN TAB IS HIDDEN
+  // -----------------------------------------
+
   document.addEventListener(
     'visibilitychange',
     () => {
@@ -775,6 +872,7 @@ teamSections.forEach((section) => {
     }
   );
 
+  // Start slideshow
   startAuto();
 
 })();
