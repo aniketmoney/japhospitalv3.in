@@ -23,23 +23,15 @@ $$('.brand-strip-rating').forEach((rating) => {
   rating.href = SITE_TRUST.reviewUrl;
   rating.target = '_blank';
   rating.rel = 'noopener';
-
   rating.setAttribute(
     'aria-label',
     `See JAP Hospital Google reviews — rated ${SITE_TRUST.rating} from ${SITE_TRUST.reviews}`
   );
-
   rating.innerHTML = `
     <span class="rating-stars" aria-hidden="true">★★★★★</span>
-    <span class="rating-score">
-      <strong>${SITE_TRUST.rating}</strong>
-    </span>
-    <span class="rating-count">
-      ${SITE_TRUST.reviews}
-    </span>
-    <span class="rating-link">
-      See what our patients say →
-    </span>
+    <span class="rating-score"><strong>${SITE_TRUST.rating}</strong></span>
+    <span class="rating-count">${SITE_TRUST.reviews}</span>
+    <span class="rating-link">See what our patients say →</span>
   `;
 });
 
@@ -48,76 +40,47 @@ $$('.google-proof-card').forEach((card) => {
   card.href = SITE_TRUST.reviewUrl;
   card.target = '_blank';
   card.rel = 'noopener';
-
   card.setAttribute(
     'aria-label',
     `See JAP Hospital Google reviews — rated ${SITE_TRUST.rating} from ${SITE_TRUST.reviews}`
   );
-
   card.innerHTML = `
-    <div class="google-proof-stars" aria-hidden="true">
-      ★★★★★
-    </div>
-
-    <div class="google-proof-score">
-      ${SITE_TRUST.rating}
-    </div>
-
+    <div class="google-proof-stars" aria-hidden="true">★★★★★</div>
+    <div class="google-proof-score">${SITE_TRUST.rating}</div>
     <div class="google-proof-copy">
-      <strong>
-        ${SITE_TRUST.reviews}
-      </strong>
-
-      <span>
-        See what our patients say →
-      </span>
+      <strong>${SITE_TRUST.reviews}</strong>
+      <span>See what our patients say →</span>
     </div>
   `;
 });
 
 // Make the two phone purposes clear wherever these links appear.
 $$(`a[href="tel:${SITE_CONTACT.receptionPhone}"]`).forEach((link) => {
-  link.setAttribute(
-    'aria-label',
-    'Call JAP Hospital Reception / Emergency'
-  );
-
+  link.setAttribute('aria-label', 'Call JAP Hospital Reception / Emergency');
   link.title = 'Reception / Emergency';
 });
 
 $$(`a[href*="wa.me/${SITE_CONTACT.whatsappPhone}"]`).forEach((link) => {
   if (!link.getAttribute('aria-label')) {
-    link.setAttribute(
-      'aria-label',
-      'WhatsApp JAP Hospital Appointment Desk'
-    );
+    link.setAttribute('aria-label', 'WhatsApp JAP Hospital Appointment Desk');
   }
-
   link.title = 'WhatsApp Appointment Desk';
 });
 
 // =========================================================
 // HEADER SCROLL EFFECT
 // =========================================================
-
 const header = $('.header');
 
 window.addEventListener(
   'scroll',
-  () =>
-    header?.classList.toggle(
-      'scrolled',
-      window.scrollY > 8
-    ),
-  {
-    passive: true
-  }
+  () => header?.classList.toggle('scrolled', window.scrollY > 8),
+  { passive: true }
 );
 
 // =========================================================
 // MOBILE MENU
 // =========================================================
-
 const menu = $('#mobileMenu');
 
 function openMenu() {
@@ -130,241 +93,123 @@ function closeMenu() {
   document.body.classList.remove('no-scroll');
 }
 
-$('#menuBtn')?.addEventListener(
-  'click',
-  openMenu
-);
+$('#menuBtn')?.addEventListener('click', openMenu);
+$('#mobileClose')?.addEventListener('click', closeMenu);
 
-$('#mobileClose')?.addEventListener(
-  'click',
-  closeMenu
-);
-
-menu?.addEventListener(
-  'click',
-  (e) => {
-    if (e.target === menu) {
-      closeMenu();
-    }
-  }
-);
+menu?.addEventListener('click', (e) => {
+  if (e.target === menu) closeMenu();
+});
 
 $$('.mobile-links a').forEach((a) => {
-  a.addEventListener(
-    'click',
-    closeMenu
-  );
+  a.addEventListener('click', closeMenu);
 });
 
 // =========================================================
 // SCROLL REVEAL
 // =========================================================
-
 const revealItems = $$('[data-reveal]');
 
 if ('IntersectionObserver' in window) {
-
   const io = new IntersectionObserver(
     (entries) =>
       entries.forEach((entry) => {
-
         if (entry.isIntersecting) {
-
-          entry.target.classList.add(
-            'visible'
-          );
-
-          io.unobserve(
-            entry.target
-          );
-
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
         }
-
       }),
-    {
-      threshold: 0.12
-    }
+    { threshold: 0.12 }
   );
 
-  revealItems.forEach((el) => {
-    io.observe(el);
-  });
-
+  revealItems.forEach((el) => io.observe(el));
 } else {
-
-  revealItems.forEach((el) => {
-    el.classList.add('visible');
-  });
-
+  revealItems.forEach((el) => el.classList.add('visible'));
 }
 
 // =========================================================
 // PATIENT VIDEO MODAL
 // =========================================================
-
 const modal = $('#videoModal');
 const modalVideo = $('#patientVideo');
 const modalTitle = $('#videoTitle');
 
 $$('[data-video]').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    if (!modal || !modalVideo) return;
 
-  btn.addEventListener(
-    'click',
-    () => {
+    modalTitle.textContent = btn.dataset.title || 'Patient Story';
+    modalVideo.src = btn.dataset.video || '';
 
-      if (!modal || !modalVideo) {
-        return;
-      }
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
 
-      modalTitle.textContent =
-        btn.dataset.title ||
-        'Patient Story';
+    document.body.classList.add('no-scroll');
 
-      modalVideo.src =
-        btn.dataset.video ||
-        '';
-
-      modal.classList.add(
-        'open'
-      );
-
-      modal.setAttribute(
-        'aria-hidden',
-        'false'
-      );
-
-      document.body.classList.add(
-        'no-scroll'
-      );
-
-      modalVideo
-        .play()
-        .catch(() => {});
-
-    }
-  );
-
+    modalVideo
+      .play()
+      .catch(() => {});
+  });
 });
 
 function closeVideo() {
+  if (!modal || !modalVideo) return;
 
-  if (!modal || !modalVideo) {
-    return;
-  }
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
 
-  modal.classList.remove(
-    'open'
-  );
-
-  modal.setAttribute(
-    'aria-hidden',
-    'true'
-  );
-
-  document.body.classList.remove(
-    'no-scroll'
-  );
+  document.body.classList.remove('no-scroll');
 
   modalVideo.pause();
-
-  modalVideo.removeAttribute(
-    'src'
-  );
-
+  modalVideo.removeAttribute('src');
   modalVideo.load();
 }
 
-$('#videoClose')?.addEventListener(
-  'click',
-  closeVideo
-);
+$('#videoClose')?.addEventListener('click', closeVideo);
 
-modal?.addEventListener(
-  'click',
-  (e) => {
+modal?.addEventListener('click', (e) => {
+  if (e.target === modal) closeVideo();
+});
 
-    if (e.target === modal) {
-      closeVideo();
-    }
-
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeMenu();
+    closeVideo();
   }
-);
-
-document.addEventListener(
-  'keydown',
-  (e) => {
-
-    if (e.key === 'Escape') {
-
-      closeMenu();
-      closeVideo();
-
-    }
-
-  }
-);
+});
 
 // =========================================================
 // KNEE PAIN CHECKER
 // =========================================================
-
 const checker = $('#kneeChecker');
 
 if (checker) {
-
-  const boxes =
-    $$(
-      'input[type=checkbox]',
-      checker
-    );
-
-  const count =
-    $('#checkerCount');
-
-  const msg =
-    $('#checkerMessage');
+  const boxes = $$('input[type=checkbox]', checker);
+  const count = $('#checkerCount');
+  const msg = $('#checkerMessage');
 
   const update = () => {
-
-    const n =
-      boxes.filter(
-        (b) => b.checked
-      ).length;
+    const n = boxes.filter((b) => b.checked).length;
 
     if (count) {
       count.textContent = n;
     }
 
-    if (!msg) {
-      return;
-    }
+    if (!msg) return;
 
     if (n === 0) {
-
       msg.textContent =
         'Select any symptoms that apply to you.';
-
     } else if (n < 3) {
-
       msg.textContent =
         'A few symptoms can still be worth discussing if they persist or interfere with daily life.';
-
     } else {
-
       msg.textContent =
         'Several symptoms apply. An orthopaedic evaluation may help identify the cause and appropriate next steps.';
-
     }
-
   };
 
   boxes.forEach((b) => {
-
-    b.addEventListener(
-      'change',
-      update
-    );
-
+    b.addEventListener('change', update);
   });
 
   update();
@@ -373,49 +218,37 @@ if (checker) {
 // =========================================================
 // APPOINTMENT FORM -> WHATSAPP APPOINTMENT DESK
 // =========================================================
-
 const form = $('#appointmentForm');
 
 if (form) {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-  form.addEventListener(
-    'submit',
-    (e) => {
+    const d = new FormData(form);
 
-      e.preventDefault();
+    const text =
+      `Hello JAP Hospital, I would like to request an appointment.%0A%0A` +
+      `Name: ${encodeURIComponent(d.get('name') || '')}%0A` +
+      `Phone: ${encodeURIComponent(d.get('phone') || '')}%0A` +
+      `Concern: ${encodeURIComponent(d.get('concern') || '')}%0A` +
+      `Preferred date: ${encodeURIComponent(d.get('date') || '')}%0A` +
+      `Message: ${encodeURIComponent(d.get('message') || '')}`;
 
-      const d =
-        new FormData(form);
-
-      const text =
-        `Hello JAP Hospital, I would like to request an appointment.%0A%0A` +
-        `Name: ${encodeURIComponent(d.get('name') || '')}%0A` +
-        `Phone: ${encodeURIComponent(d.get('phone') || '')}%0A` +
-        `Concern: ${encodeURIComponent(d.get('concern') || '')}%0A` +
-        `Preferred date: ${encodeURIComponent(d.get('date') || '')}%0A` +
-        `Message: ${encodeURIComponent(d.get('message') || '')}`;
-
-      window.open(
-        `https://wa.me/${SITE_CONTACT.whatsappPhone}?text=${text}`,
-        '_blank',
-        'noopener'
-      );
-
-    }
-  );
-
+    window.open(
+      `https://wa.me/${SITE_CONTACT.whatsappPhone}?text=${text}`,
+      '_blank',
+      'noopener'
+    );
+  });
 }
 
 // =========================================================
 // ELDER-FRIENDLY MOBILE ACTION BAR
 // Always keep this exactly: Call | WhatsApp | Book.
 // =========================================================
-
-const mobileActions =
-  $('.mobile-actions');
+const mobileActions = $('.mobile-actions');
 
 if (mobileActions) {
-
   mobileActions.innerHTML = `
     <a
       href="tel:${SITE_CONTACT.receptionPhone}"
@@ -443,58 +276,38 @@ if (mobileActions) {
       Book
     </a>
   `;
-
 }
 
 // =========================================================
 // CONTEXTUAL ORTHOPAEDIC TEAM CTA
 // Homepage: only sections deliberately marked data-team-cta="true"
-// Internal pages retain the previous behaviour.
+// to keep the page human and less repetitive.
+// Internal pages retain the previous behavior.
 // =========================================================
-
 const isHomePage =
-  document.body.classList.contains(
-    'home-page'
-  );
+  document.body.classList.contains('home-page');
 
 const teamSections =
   isHomePage
-    ? $$(
-        'main > section.section[data-team-cta="true"]'
-      )
-    : $$(
-        'main > section.section'
-      );
+    ? $$('main > section.section[data-team-cta="true"]')
+    : $$('main > section.section');
 
 teamSections.forEach((section) => {
-
   if (
-    section.classList.contains(
-      'no-team-cta'
-    ) ||
-    section.querySelector(
-      '.cta'
-    ) ||
-    section.querySelector(
-      '.section-team-cta'
-    )
+    section.classList.contains('no-team-cta') ||
+    section.querySelector('.cta') ||
+    section.querySelector('.section-team-cta')
   ) {
     return;
   }
 
   const wrap =
-    section.querySelector(
-      '.container'
-    );
+    section.querySelector('.container');
 
-  if (!wrap) {
-    return;
-  }
+  if (!wrap) return;
 
   const cta =
-    document.createElement(
-      'div'
-    );
+    document.createElement('div');
 
   cta.className =
     'section-team-cta';
@@ -509,26 +322,19 @@ teamSections.forEach((section) => {
     </a>
   `;
 
-  wrap.appendChild(
-    cta
-  );
-
+  wrap.appendChild(cta);
 });
 
 // =========================================================
-// V3.7 — V2-ALIGNED FIVE-SLIDE HOSPITAL SHOWCASE
+// V3.8 — V2-ALIGNED FIVE-SLIDE HOSPITAL SHOWCASE
 // Auto changes every 5 seconds.
 // Supports arrows, dots, keyboard and mobile swipe.
 // =========================================================
-
 (() => {
-
   const slider =
     $('#japHomeSlider');
 
-  if (!slider) {
-    return;
-  }
+  if (!slider) return;
 
   const slides =
     $$('.home-slide', slider);
@@ -551,15 +357,8 @@ teamSections.forEach((section) => {
 
   const interval = 5000;
 
-  // -----------------------------------------
-  // SLIDER PROGRESS BAR
-  // -----------------------------------------
-
   const animateProgress = () => {
-
-    if (!progress) {
-      return;
-    }
+    if (!progress) return;
 
     progress.style.animation =
       'none';
@@ -568,66 +367,41 @@ teamSections.forEach((section) => {
 
     progress.style.animation =
       `homeSliderProgress ${interval}ms linear forwards`;
-
   };
 
-  // -----------------------------------------
-  // STOP AUTOMATIC SLIDES
-  // -----------------------------------------
-
   const stopAuto = () => {
-
     if (timer) {
-
       clearInterval(timer);
       timer = null;
-
     }
 
     if (progress) {
-
       progress.style.animationPlayState =
         'paused';
-
     }
-
   };
 
-  // -----------------------------------------
-  // START AUTOMATIC SLIDES
-  // -----------------------------------------
-
   const startAuto = () => {
-
     stopAuto();
-
     animateProgress();
 
     timer = setInterval(
       () => {
-
         showSlide(
           index + 1,
           false
         );
 
         animateProgress();
-
       },
       interval
     );
-
   };
-
-  // -----------------------------------------
-  // SHOW SELECTED SLIDE
-  // -----------------------------------------
 
   const showSlide = (
     newIndex,
     restart = true
   ) => {
-
     index =
       (
         newIndex +
@@ -635,102 +409,67 @@ teamSections.forEach((section) => {
       ) %
       slides.length;
 
-    slides.forEach(
-      (slide, i) => {
+    slides.forEach((slide, i) => {
+      const active =
+        i === index;
 
-        const active =
-          i === index;
+      slide.classList.toggle(
+        'active',
+        active
+      );
 
-        slide.classList.toggle(
-          'active',
-          active
-        );
+      slide.setAttribute(
+        'aria-hidden',
+        active
+          ? 'false'
+          : 'true'
+      );
+    });
 
-        slide.setAttribute(
-          'aria-hidden',
-          active
-            ? 'false'
-            : 'true'
-        );
+    dots.forEach((dot, i) => {
+      const active =
+        i === index;
 
-      }
-    );
+      dot.classList.toggle(
+        'active',
+        active
+      );
 
-    dots.forEach(
-      (dot, i) => {
-
-        const active =
-          i === index;
-
-        dot.classList.toggle(
-          'active',
-          active
-        );
-
-        dot.setAttribute(
-          'aria-current',
-          active
-            ? 'true'
-            : 'false'
-        );
-
-      }
-    );
+      dot.setAttribute(
+        'aria-current',
+        active
+          ? 'true'
+          : 'false'
+      );
+    });
 
     if (restart) {
       startAuto();
     }
-
   };
-
-  // -----------------------------------------
-  // PREVIOUS / NEXT BUTTONS
-  // -----------------------------------------
 
   prev?.addEventListener(
     'click',
     () => {
-
-      showSlide(
-        index - 1
-      );
-
+      showSlide(index - 1);
     }
   );
 
   next?.addEventListener(
     'click',
     () => {
-
-      showSlide(
-        index + 1
-      );
-
+      showSlide(index + 1);
     }
   );
 
-  // -----------------------------------------
-  // SLIDER DOTS
-  // -----------------------------------------
-
-  dots.forEach(
-    (dot, i) => {
-
-      dot.addEventListener(
-        'click',
-        () => {
-
-          showSlide(i);
-
-        }
-      );
-
-    }
-  );
-
-  // -----------------------------------------
-  // DESKTOP HOVER
-  // -----------------------------------------
+  dots.forEach((dot, i) => {
+    dot.addEventListener(
+      'click',
+      () => {
+        showSlide(i);
+      }
+    );
+  });
 
   slider.addEventListener(
     'mouseenter',
@@ -742,10 +481,6 @@ teamSections.forEach((section) => {
     startAuto
   );
 
-  // -----------------------------------------
-  // KEYBOARD FOCUS
-  // -----------------------------------------
-
   slider.addEventListener(
     'focusin',
     stopAuto
@@ -756,33 +491,22 @@ teamSections.forEach((section) => {
     startAuto
   );
 
-  // -----------------------------------------
-  // MOBILE SWIPE START
-  // -----------------------------------------
-
   slider.addEventListener(
     'touchstart',
     (e) => {
-
       touchStartX =
         e.changedTouches[0].clientX;
 
       stopAuto();
-
     },
     {
       passive: true
     }
   );
 
-  // -----------------------------------------
-  // MOBILE SWIPE END
-  // -----------------------------------------
-
   slider.addEventListener(
     'touchend',
     (e) => {
-
       const delta =
         e.changedTouches[0].clientX -
         touchStartX;
@@ -790,7 +514,6 @@ teamSections.forEach((section) => {
       if (
         Math.abs(delta) > 45
       ) {
-
         showSlide(
           index +
           (
@@ -799,13 +522,9 @@ teamSections.forEach((section) => {
               : -1
           )
         );
-
       } else {
-
         startAuto();
-
       }
-
     },
     {
       passive: true
@@ -820,59 +539,37 @@ teamSections.forEach((section) => {
     }
   );
 
-  // -----------------------------------------
-  // KEYBOARD ARROW NAVIGATION
-  // -----------------------------------------
-
   slider.addEventListener(
     'keydown',
     (e) => {
-
       if (
         e.key === 'ArrowLeft'
       ) {
-
         showSlide(
           index - 1
         );
-
       }
 
       if (
         e.key === 'ArrowRight'
       ) {
-
         showSlide(
           index + 1
         );
-
       }
-
     }
   );
-
-  // -----------------------------------------
-  // PAUSE WHEN TAB IS HIDDEN
-  // -----------------------------------------
 
   document.addEventListener(
     'visibilitychange',
     () => {
-
       if (document.hidden) {
-
         stopAuto();
-
       } else {
-
         startAuto();
-
       }
-
     }
   );
 
-  // Start slideshow
   startAuto();
-
 })();
