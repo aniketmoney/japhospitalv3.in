@@ -3,6 +3,8 @@ const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 
 // =========================================================
 // V3.4 SITE-WIDE TRUST + CONTACT SETTINGS
+// Update the Google figures here after periodically checking
+// the live Google Business profile.
 // =========================================================
 const SITE_TRUST = {
   rating: '4.9/5',
@@ -15,20 +17,16 @@ const SITE_CONTACT = {
   whatsappPhone: '919909916112'
 };
 
-// =========================================================
-// GOOGLE RATING
-// =========================================================
+// Keep the header Google-rating presentation identical on every page.
 $$('.brand-strip-rating').forEach((rating) => {
   rating.classList.add('rating-enhanced', 'rating-mobile-card');
   rating.href = SITE_TRUST.reviewUrl;
   rating.target = '_blank';
   rating.rel = 'noopener';
-
   rating.setAttribute(
     'aria-label',
     `See JAP Hospital Google reviews — rated ${SITE_TRUST.rating} from ${SITE_TRUST.reviews}`
   );
-
   rating.innerHTML = `
     <span class="rating-stars" aria-hidden="true">★★★★★</span>
     <span class="rating-score"><strong>${SITE_TRUST.rating}</strong></span>
@@ -37,20 +35,18 @@ $$('.brand-strip-rating').forEach((rating) => {
   `;
 });
 
+// Keep the larger homepage Google proof card in sync with the header.
 $$('.google-proof-card').forEach((card) => {
   card.href = SITE_TRUST.reviewUrl;
   card.target = '_blank';
   card.rel = 'noopener';
-
   card.setAttribute(
     'aria-label',
     `See JAP Hospital Google reviews — rated ${SITE_TRUST.rating} from ${SITE_TRUST.reviews}`
   );
-
   card.innerHTML = `
     <div class="google-proof-stars" aria-hidden="true">★★★★★</div>
     <div class="google-proof-score">${SITE_TRUST.rating}</div>
-
     <div class="google-proof-copy">
       <strong>${SITE_TRUST.reviews}</strong>
       <span>See what our patients say →</span>
@@ -58,15 +54,12 @@ $$('.google-proof-card').forEach((card) => {
   `;
 });
 
-// =========================================================
-// PHONE / WHATSAPP LABELS
-// =========================================================
+// Make the two phone purposes clear wherever these links appear.
 $$(`a[href="tel:${SITE_CONTACT.receptionPhone}"]`).forEach((link) => {
   link.setAttribute(
     'aria-label',
     'Call JAP Hospital Reception / Emergency'
   );
-
   link.title = 'Reception / Emergency';
 });
 
@@ -192,20 +185,30 @@ $$(`a[href*="wa.me/${SITE_CONTACT.whatsappPhone}"]`).forEach((link) => {
 
   if (mobileNav) {
     mobileNav.innerHTML = `
-      <a href="index.html">Home</a>
-      <a href="orthopaedics.html">Treatments</a>
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="orthopaedics.html">
+        Treatments
+      </a>
+
       <a href="robotic-knee-replacement.html">
         Robotic Knee Replacement
       </a>
+
       <a href="doctor-aman-singh.html">
         Dr. Aman Singh
       </a>
+
       <a href="about.html">
         About JAP Hospital
       </a>
+
       <a href="index.html#patient-stories">
         Patient Stories
       </a>
+
       <a href="contact.html">
         Contact / Appointment
       </a>
@@ -381,11 +384,7 @@ function closeVideo() {
   );
 
   modalVideo.pause();
-
-  modalVideo.removeAttribute(
-    'src'
-  );
-
+  modalVideo.removeAttribute('src');
   modalVideo.load();
 }
 
@@ -422,7 +421,8 @@ document.addEventListener(
 // =========================================================
 // KNEE PAIN CHECKER
 // =========================================================
-const checker = $('#kneeChecker');
+const checker =
+  $('#kneeChecker');
 
 if (checker) {
 
@@ -487,7 +487,8 @@ if (checker) {
 // =========================================================
 // APPOINTMENT FORM -> WHATSAPP
 // =========================================================
-const form = $('#appointmentForm');
+const form =
+  $('#appointmentForm');
 
 if (form) {
 
@@ -625,9 +626,8 @@ teamSections.forEach((section) => {
 });
 
 // =========================================================
-// V3.11 — FIVE-SLIDE HOSPITAL SHOWCASE
-// Reliable 5-second autoplay
-// + clearly visible V2-style transition.
+// V3.12 — FIVE-SLIDE HOSPITAL SHOWCASE
+// 5-second autoplay + visible V2-style transition.
 // =========================================================
 (() => {
 
@@ -740,7 +740,7 @@ teamSections.forEach((section) => {
   };
 
   // -----------------------------------------
-  // NEXT SLIDE AFTER EXACTLY 5 SECONDS
+  // NEXT SLIDE AFTER 5 SECONDS
   // -----------------------------------------
   const scheduleNext = () => {
 
@@ -885,8 +885,6 @@ teamSections.forEach((section) => {
 
     updateDots();
 
-    // Remove old transition classes
-    // from unrelated slides.
     slides.forEach(
       (slide, i) => {
 
@@ -925,8 +923,6 @@ teamSections.forEach((section) => {
       return;
     }
 
-    // Keep outgoing slide visible
-    // before starting its fade.
     oldSlide?.classList.remove(
       'is-entering',
       'is-leaving'
@@ -936,8 +932,6 @@ teamSections.forEach((section) => {
       'active'
     );
 
-    // Incoming slide begins transparent
-    // and slightly shifted right.
     newSlide.classList.remove(
       'active',
       'is-leaving'
@@ -952,8 +946,6 @@ teamSections.forEach((section) => {
       'false'
     );
 
-    // Force browser to paint
-    // the starting animation state.
     void newSlide.offsetWidth;
 
     window.requestAnimationFrame(
@@ -965,7 +957,6 @@ teamSections.forEach((section) => {
           return;
         }
 
-        // OUTGOING SLIDE
         if (
           oldSlide &&
           oldSlide !== newSlide
@@ -986,7 +977,6 @@ teamSections.forEach((section) => {
 
         }
 
-        // INCOMING SLIDE
         newSlide.classList.remove(
           'is-entering'
         );
@@ -995,8 +985,6 @@ teamSections.forEach((section) => {
           'active'
         );
 
-        // Remove old slide after
-        // transition is complete.
         cleanupTimer =
           window.setTimeout(
             () => {
