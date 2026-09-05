@@ -1914,7 +1914,7 @@ main,.container,.home-showcase,.home-slider,.home-slide,.home-slide-content,.foo
 
 
 /* =========================================================
-   V3.12 — CREDIBILITY HIERARCHY + REPETITION REDUCTION
+   V3.13 — FINAL ATTRIBUTION + WHY JAP RESTORATION
    Requested final refinements only.
    ========================================================= */
 
@@ -1990,8 +1990,17 @@ main,.container,.home-showcase,.home-slider,.home-slide,.home-slide-content,.foo
   color:#fff1f2;
 }
 
-/* The separate Doaba promo block was removed.
-   Regional access is now integrated naturally into point 07. */
+.doctor-impact-disclaimer{
+  margin:16px 2px 0;
+  color:#d8eaf5;
+  font-size:.8rem;
+  line-height:1.55;
+  font-weight:650;
+  text-align:center;
+}
+
+/* Keep the client-requested Doaba positioning block above the seven points,
+   while point 07 also carries the full regional-access message. */
 .why-family-grid .why-doaba-card{
   grid-column:span 2;
   min-height:210px;
@@ -2079,5 +2088,17 @@ main,.container,.home-showcase,.home-slider,.home-slide,.home-slide-content,.foo
   }
   .why-doaba-inline small{
     font-size:.7rem;
+  }
+}
+
+
+@media(max-width:640px){
+  .doctor-impact-disclaimer{
+    margin-top:13px;
+    font-size:.74rem;
+    text-align:left;
+  }
+  .why-family-grid .why-doaba-card p + p{
+    margin-top:9px;
   }
 }
