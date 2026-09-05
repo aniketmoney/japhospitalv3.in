@@ -23,10 +23,12 @@ $$('.brand-strip-rating').forEach((rating) => {
   rating.href = SITE_TRUST.reviewUrl;
   rating.target = '_blank';
   rating.rel = 'noopener';
+
   rating.setAttribute(
     'aria-label',
     `See JAP Hospital Google reviews — rated ${SITE_TRUST.rating} from ${SITE_TRUST.reviews}`
   );
+
   rating.innerHTML = `
     <span class="rating-stars" aria-hidden="true">★★★★★</span>
     <span class="rating-score"><strong>${SITE_TRUST.rating}</strong></span>
@@ -40,13 +42,16 @@ $$('.google-proof-card').forEach((card) => {
   card.href = SITE_TRUST.reviewUrl;
   card.target = '_blank';
   card.rel = 'noopener';
+
   card.setAttribute(
     'aria-label',
     `See JAP Hospital Google reviews — rated ${SITE_TRUST.rating} from ${SITE_TRUST.reviews}`
   );
+
   card.innerHTML = `
     <div class="google-proof-stars" aria-hidden="true">★★★★★</div>
     <div class="google-proof-score">${SITE_TRUST.rating}</div>
+
     <div class="google-proof-copy">
       <strong>${SITE_TRUST.reviews}</strong>
       <span>See what our patients say →</span>
@@ -60,6 +65,7 @@ $$(`a[href="tel:${SITE_CONTACT.receptionPhone}"]`).forEach((link) => {
     'aria-label',
     'Call JAP Hospital Reception / Emergency'
   );
+
   link.title = 'Reception / Emergency';
 });
 
@@ -185,30 +191,20 @@ $$(`a[href*="wa.me/${SITE_CONTACT.whatsappPhone}"]`).forEach((link) => {
 
   if (mobileNav) {
     mobileNav.innerHTML = `
-      <a href="index.html">
-        Home
-      </a>
-
-      <a href="orthopaedics.html">
-        Treatments
-      </a>
-
+      <a href="index.html">Home</a>
+      <a href="orthopaedics.html">Treatments</a>
       <a href="robotic-knee-replacement.html">
         Robotic Knee Replacement
       </a>
-
       <a href="doctor-aman-singh.html">
         Dr. Aman Singh
       </a>
-
       <a href="about.html">
         About JAP Hospital
       </a>
-
       <a href="index.html#patient-stories">
         Patient Stories
       </a>
-
       <a href="contact.html">
         Contact / Appointment
       </a>
@@ -626,7 +622,7 @@ teamSections.forEach((section) => {
 });
 
 // =========================================================
-// V3.12 — FIVE-SLIDE HOSPITAL SHOWCASE
+// V3.13 — FIVE-SLIDE HOSPITAL SHOWCASE
 // 5-second autoplay + visible V2-style transition.
 // =========================================================
 (() => {
@@ -680,9 +676,6 @@ teamSections.forEach((section) => {
       '(prefers-reduced-motion: reduce)'
     ).matches;
 
-  // -----------------------------------------
-  // PROGRESS BAR
-  // -----------------------------------------
   const resetProgress = () => {
 
     if (!progress) {
@@ -705,9 +698,6 @@ teamSections.forEach((section) => {
 
   };
 
-  // -----------------------------------------
-  // CLEAR 5-SECOND TIMER
-  // -----------------------------------------
   const clearAutoTimer = () => {
 
     if (timer !== null) {
@@ -722,9 +712,6 @@ teamSections.forEach((section) => {
 
   };
 
-  // -----------------------------------------
-  // CLEAR TRANSITION CLEANUP
-  // -----------------------------------------
   const clearCleanupTimer = () => {
 
     if (cleanupTimer !== null) {
@@ -739,9 +726,6 @@ teamSections.forEach((section) => {
 
   };
 
-  // -----------------------------------------
-  // NEXT SLIDE AFTER 5 SECONDS
-  // -----------------------------------------
   const scheduleNext = () => {
 
     clearAutoTimer();
@@ -766,9 +750,6 @@ teamSections.forEach((section) => {
 
   };
 
-  // -----------------------------------------
-  // UPDATE DOTS
-  // -----------------------------------------
   const updateDots = () => {
 
     dots.forEach(
@@ -794,9 +775,6 @@ teamSections.forEach((section) => {
 
   };
 
-  // -----------------------------------------
-  // REDUCED MOTION FALLBACK
-  // -----------------------------------------
   const finishImmediately = (
     oldSlide,
     newSlide
@@ -834,9 +812,6 @@ teamSections.forEach((section) => {
 
   };
 
-  // -----------------------------------------
-  // SHOW SLIDE WITH VISIBLE TRANSITION
-  // -----------------------------------------
   const showSlide = (
     newIndex,
     restart = true
@@ -1036,9 +1011,6 @@ teamSections.forEach((section) => {
 
   };
 
-  // -----------------------------------------
-  // PREVIOUS / NEXT BUTTONS
-  // -----------------------------------------
   prev?.addEventListener(
     'click',
     () => {
@@ -1061,9 +1033,6 @@ teamSections.forEach((section) => {
     }
   );
 
-  // -----------------------------------------
-  // DOTS
-  // -----------------------------------------
   dots.forEach(
     (dot, i) => {
 
@@ -1079,9 +1048,6 @@ teamSections.forEach((section) => {
     }
   );
 
-  // -----------------------------------------
-  // MOBILE SWIPE
-  // -----------------------------------------
   slider.addEventListener(
     'touchstart',
     (e) => {
@@ -1148,9 +1114,6 @@ teamSections.forEach((section) => {
     }
   );
 
-  // -----------------------------------------
-  // KEYBOARD NAVIGATION
-  // -----------------------------------------
   slider.addEventListener(
     'keydown',
     (e) => {
@@ -1182,9 +1145,6 @@ teamSections.forEach((section) => {
     }
   );
 
-  // -----------------------------------------
-  // TAB VISIBILITY
-  // -----------------------------------------
   document.addEventListener(
     'visibilitychange',
     () => {
@@ -1210,9 +1170,6 @@ teamSections.forEach((section) => {
     }
   );
 
-  // -----------------------------------------
-  // INITIAL STATE
-  // -----------------------------------------
   slides.forEach(
     (slide, i) => {
 
