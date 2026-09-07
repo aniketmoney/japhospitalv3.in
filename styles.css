@@ -2102,3 +2102,139 @@ main,.container,.home-showcase,.home-slider,.home-slide,.home-slide-content,.foo
     margin-top:9px;
   }
 }
+
+
+/* =========================================================
+   V3.14 — FINAL CLIENT REFINEMENT
+   Stronger immediate credibility, tighter Why JAP structure,
+   and clearer hospital-wide treatment positioning.
+   ========================================================= */
+
+/* Immediate experience strip below the hero. */
+.home-experience-strip{
+  padding:24px 0 18px;
+  background:linear-gradient(135deg,#062f51 0%,#0B4F8A 72%,#123e60 100%);
+  border-top:3px solid var(--red);
+  box-shadow:0 14px 34px rgba(6,53,95,.12);
+}
+.home-experience-grid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:10px;
+}
+.home-experience-grid>div{
+  min-width:0;
+  min-height:96px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:14px 12px;
+  border-radius:16px;
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+}
+.home-experience-grid .experience-primary{
+  background:linear-gradient(145deg,#D62828,#A71919);
+  border-color:rgba(255,255,255,.16);
+}
+.home-experience-grid .experience-accreditation{
+  background:rgba(255,255,255,.14);
+}
+.home-experience-grid strong{
+  display:block;
+  color:#fff;
+  font:800 clamp(1.35rem,2.2vw,2rem)/1 Poppins,Inter,sans-serif;
+  letter-spacing:-.03em;
+}
+.home-experience-grid span{
+  display:block;
+  margin-top:8px;
+  color:#d8e9f4;
+  font-size:.75rem;
+  line-height:1.35;
+  font-weight:750;
+}
+.home-experience-grid .experience-primary span{color:#fff1f2}
+.home-experience-note{
+  margin:10px 0 0;
+  text-align:center;
+  color:#bcd5e6;
+  font-size:.7rem;
+  line-height:1.45;
+}
+
+/* Why JAP: preserve the regional-access message without location chips,
+   then present exactly six non-duplicative reasons. */
+.why-jap-family .why-doaba-intro{
+  grid-template-columns:1fr;
+  max-width:1000px;
+  margin-left:auto;
+  margin-right:auto;
+  padding:28px 30px;
+}
+.why-jap-family .why-doaba-copy{max-width:920px}
+.why-jap-family .why-doaba-areas{display:none!important}
+.why-family-grid-six{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+.why-family-grid-six article{
+  min-height:190px;
+  background:#fff;
+  border:1px solid rgba(11,79,138,.12);
+  color:var(--ink);
+}
+.why-family-grid-six article h3{color:var(--navy)}
+.why-family-grid-six article p{color:#526879}
+.why-family-grid-six article span{
+  background:var(--navy);
+  color:#fff;
+}
+.why-family-grid-six article:nth-child(2){
+  background:linear-gradient(135deg,#fff0f1,#ffe3e5);
+}
+.why-family-grid-six article:nth-child(2) span{background:var(--red)}
+.why-family-grid-six article:nth-child(3){background:linear-gradient(135deg,#e9f5ff,#dceffc)}
+.why-family-grid-six article:nth-child(3) span{background:var(--blue)}
+.why-family-grid-six article:nth-child(4){background:linear-gradient(135deg,#f4f9fd,#e8f3fa)}
+.why-family-grid-six article:nth-child(4) span{background:#0d678f}
+.why-family-grid-six article:nth-child(5){background:linear-gradient(135deg,#fff8ee,#fff0dc)}
+.why-family-grid-six article:nth-child(5) span{background:var(--navy)}
+.why-family-grid-six article:nth-child(6){
+  background:linear-gradient(135deg,#06355f,#0B4F8A);
+  border-color:transparent;
+}
+.why-family-grid-six article:nth-child(6) h3,
+.why-family-grid-six article:nth-child(6) p{color:#fff}
+.why-family-grid-six article:nth-child(6) span{background:rgba(255,255,255,.14)}
+
+/* Services: keep the existing visual cards while broadening the hospital message. */
+.home-treatments .section-head{max-width:780px}
+.home-treatments .section-head h2{max-width:760px}
+
+@media(max-width:1050px){
+  .home-experience-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .why-family-grid-six{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  .home-experience-strip{padding:16px 0 14px}
+  .home-experience-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+  }
+  .home-experience-grid>div{min-height:82px;padding:11px 8px}
+  .home-experience-grid strong{font-size:1.3rem}
+  .home-experience-grid span{font-size:.66rem}
+  .home-experience-grid .experience-accreditation{grid-column:1/-1;min-height:68px}
+  .home-experience-note{font-size:.62rem;padding:0 8px}
+  .why-jap-family .why-doaba-intro{padding:22px 20px}
+  .why-family-grid-six{grid-template-columns:1fr 1fr;gap:10px}
+  .why-family-grid-six article{min-height:155px;padding:16px}
+}
+@media(max-width:520px){
+  .why-family-grid-six{grid-template-columns:1fr}
+  .why-family-grid-six article{min-height:125px}
+}
