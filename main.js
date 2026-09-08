@@ -368,7 +368,7 @@ teamSections.forEach((section) => {
 });
 
 // =========================================================
-// V3.14 — FIVE-SLIDE HOSPITAL SHOWCASE
+// V3.15 — FIVE-SLIDE HOSPITAL SHOWCASE
 // Reliable 5-second autoplay + clearly visible V2-style transition.
 // Layout and mobile alignment are unchanged.
 // =========================================================
