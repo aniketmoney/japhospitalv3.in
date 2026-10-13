@@ -153,7 +153,10 @@ $$(`a[href*="wa.me/${SITE_CONTACT.whatsappPhone}"]`).forEach((link) => {
         About
       </a>
 
-      <a href="index.html#patient-stories">
+      <a
+        href="patient-stories.html"
+        ${current === 'patient-stories.html' ? 'class="active"' : ''}
+      >
         Patient Stories
       </a>
 
@@ -179,7 +182,7 @@ $$(`a[href*="wa.me/${SITE_CONTACT.whatsappPhone}"]`).forEach((link) => {
       <a href="about.html">
         About JAP Hospital
       </a>
-      <a href="index.html#patient-stories">
+      <a href="patient-stories.html">
         Patient Stories
       </a>
       <a href="contact.html">
@@ -291,7 +294,8 @@ if ('IntersectionObserver' in window) {
 }
 
 // =========================================================
-// PATIENT VIDEO MODAL
+// V3.17 PATIENT STORIES — SHARED VIDEO MODAL
+// Works on homepage cards and patient-stories.html
 // =========================================================
 const modal = $('#videoModal');
 const modalVideo = $('#patientVideo');
